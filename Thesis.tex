@@ -82,28 +82,25 @@
 % Insert here the info that will be displayed into your Title page 
 \renewcommand{\title}{Title}
 \renewcommand{\author}{Elisa Composta} % author name and surname
-\newcommand{\course}{Computer Science and Engineering} % MSc course
+\newcommand{\course}{Computer Science and Engineering - Ingegneria Informatica} % MSc course
 \newcommand{\advisor}{Prof. Francesco Pierri} % advisor name and surname
 \newcommand{\firstcoadvisor}{Name Surname} 
 \newcommand{\secondcoadvisor}{Name Surname} 
 \newcommand{\ID}{220920} % author ID
 \newcommand{\YEAR}{2024-2025} % academic year
-% -> abstract (only in English)
+
+% abstract (only in English)
 \renewcommand{\abstract}{\input{Sections/Abstract_en}}
 
-% -> key-words (only in English)
+% key-words (only in English)
 \newcommand{\keywords}{here, the keywords, of your thesis}
 
-%-------------------------------------------------------------------------
-%	BEGIN OF YOUR DOCUMENT
-%-------------------------------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%     BEGIN OF YOUR DOCUMENT     %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
-%-----------------------------------------------------------------------------
-% TITLE PAGE
-%-----------------------------------------------------------------------------
-% Do not change Configuration_files/TitlePage.tex (Modify it IF AND ONLY IF you need to add or delete the Co-advisors)
-% This file creates the Title Page of the document
+% Title page
 \input{Configuration_files/title_page}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -118,9 +115,8 @@
 \input{Sections/Experiments}
 \input{Sections/Conclusion}
 
-%-----------------------------------------------------------------------------
+
 % BIBLIOGRAPHY
-%-----------------------------------------------------------------------------
 \section{Bibliography and citations}
 Your thesis must contain a suitable Bibliography which lists all the sources consulted on developing the work.
 The list of references is placed at the end of the manuscript after the chapter containing the conclusions.
@@ -131,9 +127,7 @@ This is indeed a database containing all the information about the references. T
 \\
 The bibliography and list of references are generated automatically by running BibTeX \cite{rossetti2024ysocialllmpoweredsocial}.
 
-%-----------------------------------------------------------------------------
 % BIBLIOGRAPHY
-%-----------------------------------------------------------------------------
 \bibliography{bibliography.bib}
 
 \input{Sections/Appendix}
@@ -143,18 +137,14 @@ The bibliography and list of references are generated automatically by running B
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \cleardoublepage
 
-%-----------------------------------------------------------------------------
 % SOMMARIO
-%-----------------------------------------------------------------------------
 \input{Sections/Abstract_it}
 
-%-----------------------------------------------------------------------------
 % ACKNOWLEDGEMENTS
-%-----------------------------------------------------------------------------
 \section*{Acknowledgements}
 Here you might want to acknowledge someone.
 
-%-------------------------------------------------------------------------
-%	END OF YOUR DOCUMENT
-%-------------------------------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%     END OF YOUR DOCUMENT     %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}

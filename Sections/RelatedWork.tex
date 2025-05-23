@@ -5,3 +5,67 @@
     \item 8-10 pages
     \item other works that address the same problem 
 \end{itemize}
+
+\subsection{Simulating Social Networks}
+
+<Intro about different social media simulators.>
+
+% Törnberg
+Törnberg et al. \cite{törnberg2023simulatingsocialmediausing} uses social media simulations to evaluate how alternative news feed algorithms impact the quality of online conversation, while increasing the interaction between opposing views.
+
+The recommended posts for each algorithm are:
+1. The most liked and commented on by the following users
+2. The globally most popular
+3. The ones liked by people of opposing divides (e.g.: Republican post liked by Democrats). They refer to this as "bridging algorithms", as it tries to increase the interactions of people with opposing views.
+
+- users initialized starting from real data: data from American National Election Study (2020) to initialize demographics characteristics, political leaning (Democrats/Republican), interests and attitudes.
+- they are provided a list of news headlines and summaries, which they can post. Then, they can comment or like the posts they read.
+- simulations: 500 users, 1 day
+
+The results showed that the first two algorithms prevented cross-party interaction or increased toxicity, whereas the bridge algorithm was the least toxic, more constructive, and with more inter-partisan interactions.
+
+% S3
+Gao et al. \cite{gao2023s3socialnetworksimulationlarge} developed a Social-network Simulation System (S3) using LLM-empowered agents, to simulate user behavior in social networks at both individual and population levels, and to evaluate the system’s accuracy using real-world social network data.
+
+- The considered case studies were Gender Discrimination and Nuclear Energy debates.
+- Metrics: Accuracy, AUC, F1-score for behavior predictions.
+- memory.
+
+<YSocial>
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Opinion Dynamics}
+<intro> Multiple ways throughout various studies to model opinion dynamics, which is not trivial.
+
+% Mathematical models
+DeGroot is a well-known opinion dynamic model, which considers that individuals are susceptible to other people's opinions. For this reason, each opinion is modeled as a weighted average of the neighbors' opinions.
+
+The Friedkin-Johnsen model \cite{article} extends the DeGroot model by introducing a component to consider the "stubborness" of the individual to his own initial idea. 
+
+In another variant, the opinion of individuals is influenced by both their own current opinion, and that of the neighbors \cite{Ye2018Opinion, Liu_2018}. This discrete-time solution is equivalent to the Friedkin-Johnsen model, but the stubbornness is on the current opinion, rather then the initial one.
+
+
+% LLMs
+<intro> Another possibility is use LLMs reasoning power to update the user opinions.
+
+Cau et al. \cite{cau2025languagedrivenopiniondynamicsagentbased} experimented simulations where agents had to discuss in pairs about the Ship of Theseus paradox.
+The opinion is a discrete value within the range 0-6, which is updated with a +- 1,  to reinforce or to discuss their previous opinion, according to whether they were convinced by their partner or not.
+The results show that LLMs tend to agree with a given statement and interacting partners. However, the agents considered are very simple, as they lack personality and demographic characterization.
+
+Chuang et al. \cite{chuang2024simulatingopiniondynamicsnetworks} had a set of users with defined demographic data and political leaning, interacting in a dyadic setting. Users replicate to another user's post by explaining their opinion in textual format, which is then converted into a numerical score by an opinion classifier.
+This study reveals that LLMs have a tendency to converge towards accurate information, therefore introducing confirmation bias is essential to better resemble human behavior and opinion dynamics.
+
+Liu et al. \cite{Liu_2024} simulated user interactions in presence of fake news. Users are initialized with realistic personas, including personality traits and a memory model. Their opinion is a textual description, shared in a tweet format. 
+Users are exposed every day with random tweets from other users, there is no social graph modeling, nor content distribution algorithm.
+
+\subsection{Misinformation}
