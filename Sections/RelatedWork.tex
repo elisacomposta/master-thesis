@@ -1,13 +1,7 @@
 \section{Related work}
 \label{sec:relatedwork}
 
-\begin{itemize} 
-    \item 8-10 pages
-    \item other works that address the same problem 
-\end{itemize}
-
 \subsection{Simulating Social Networks}
-
 <Intro about different social media simulators.>
 
 % Törnberg
@@ -36,27 +30,20 @@ The results showed that the first two algorithms prevented cross-party interacti
 
 
 
-
-
-
-
-
-
-
-
 \subsection{Opinion Dynamics}
 <intro> Multiple ways throughout various studies to model opinion dynamics, which is not trivial.
 
 % Mathematical models
 DeGroot is a well-known opinion dynamic model, which considers that individuals are susceptible to other people's opinions. For this reason, each opinion is modeled as a weighted average of the neighbors' opinions.
 
-The Friedkin-Johnsen model \cite{article} extends the DeGroot model by introducing a component to consider the "stubborness" of the individual to his own initial idea. 
+The Friedkin-Johnsen model \cite{friedkin_1990} extends the DeGroot model by introducing a component to consider the "stubborness" of the individual to his own initial idea. 
 
 In another variant, the opinion of individuals is influenced by both their own current opinion, and that of the neighbors \cite{Ye2018Opinion, Liu_2018}. This discrete-time solution is equivalent to the Friedkin-Johnsen model, but the stubbornness is on the current opinion, rather then the initial one.
 
 
 % LLMs
-<intro> Another possibility is use LLMs reasoning power to update the user opinions.
+Recently, the advent of LLMs introduced a new way to simulate and study opinion dynamics.
+Their human-like reasoning capability allows a realistic simulation of human behavior, also enabling opinion explanation in textual format.
 
 \citet{cau2025languagedrivenopiniondynamicsagentbased} experimented simulations where agents had to discuss in pairs about the Ship of Theseus paradox.
 The opinion is a discrete value within the range 0-6, which is updated with a +- 1,  to reinforce or to discuss their previous opinion, according to whether they were convinced by their partner or not.
@@ -68,4 +55,23 @@ This study reveals that LLMs have a tendency to converge towards accurate inform
 \citet{Liu_2024} simulated user interactions in presence of fake news. Users are initialized with realistic personas, including personality traits and a memory model. Their opinion is a textual description, shared in a tweet format. 
 Users are exposed every day with random tweets from other users, there is no social graph modeling, nor content distribution algorithm.
 
+\citet{piao2025emergencehumanlikepolarizationlarge} studied the opinion dynamics on thousands of LLM agents, about different topics. They underline that LLMs are capable of reproducing human behavior and phenomenon. They also noticed that LLMs tent to reach a consensus on fact-based topics (such as the flat Earth theory), while they develop a polarization pattern on political topics.
+To get a score out of the agents' opinions, they ask the agents to evaluate their political leaning, which is then converted to a numerical format.
+
+
+
+
+
 \subsection{Misinformation}
+% Misinfo intro
+
+\citet{williams2025hqdisinformation} show that LLMs are able to generate high-quality content in the context of disinformation campaigns, with a high level of humanness that makes it undistinguishable from human content for more than 50\% of the times.
+
+\citet{liu2024tinyslipgiantleap} studies the evolution of fake news and its spread in social media, by making simulations of network structures with LLM agents.
+The agents are divided into four categories: spreaders, commentators, diffusors, bystanders. These distinct roles define how agents operate towards the posts they read and write.
+The research focused on different topics, and the main outcome is that political fake news spread faster than other types of topics.
+
+\citet{hu2025simulatingrumorspreadingsocial} simulate social networks with LLM agents to study the spread of rumors. They highlight that the network structure and the individual personalities impact the rumor spread.
+
+
+
