@@ -1,8 +1,8 @@
-\section{Related work}
-\label{sec:relatedwork}
+\section{Related works}
+\label{sec:relatedworks}
 
 \subsection{Simulating Social Networks}
-<Intro about different social media simulators.>
+%<Intro about different social media simulators.>
 
 % Törnberg
 \citet{törnberg2023simulatingsocialmediausing} use social media simulations to evaluate how alternative news feed algorithms impact the quality of online conversation, while increasing the interaction between opposing views.
@@ -14,7 +14,6 @@ The recommended posts for each algorithm are:
 
 - users initialized starting from real data: data from American National Election Study (2020) to initialize demographics characteristics, political leaning (Democrats/Republican), interests and attitudes.
 - they are provided a list of news headlines and summaries, which they can post. Then, they can comment or like the posts they read.
-- simulations: 500 users, 1 day
 
 The results showed that the first two algorithms prevented cross-party interaction or increased toxicity, whereas the bridge algorithm was the least toxic, more constructive, and with more inter-partisan interactions.
 
@@ -22,16 +21,38 @@ The results showed that the first two algorithms prevented cross-party interacti
 \citet{gao2023s3socialnetworksimulationlarge} developed a Social-network Simulation System (S3) using LLM-empowered agents, to simulate user behavior in social networks at both individual and population levels, and to evaluate the system’s accuracy using real-world social network data.
 
 - The considered case studies were Gender Discrimination and Nuclear Energy debates.
-- Metrics: Accuracy, AUC, F1-score for behavior predictions.
-- memory.
+- Each user has a memory pool keeping the most relevant content
+- Evaluated the system accuracy at both individual level (emotion, attitude change, content generation) and population level
+- Good results in simulating individual emotion, attitude change and content generation. At population level, it could correctly replicate real-world trends (like emotion and attitude propagation)
 
-<YSocial>
+% YSocial
+\citet{rossetti2024ysocialllmpoweredsocial} introduced Y, a social media simulator with LLM agents.
+It allows including real-world data and information, via integration of the RSS.
+The users in this platform can perform the common social media actions (such as posting, commenting, reacting, and following other users).
+Individuals are initialized with interests, political leaning, demographic data and the personality, according to the Big Five traits. \cite{McCrae1992}
+The study showed that this simulator allows the generation of realistic social phenomenon, like virality, polarization, and echo chambers.
+It also highlights that algorithmic bias influences which content becomes more visible and viral.
+
+
+
+
+\subsection{Simulating misinformation with LLM agents}
+% <Misinfo intro>
+
+\citet{williams2025hqdisinformation} show that LLMs are able to generate high-quality content in the context of disinformation campaigns, with a high level of humanness that makes it undistinguishable from human content for more than 50\% of the times.
+
+\citet{liu2024tinyslipgiantleap} studies the evolution of fake news and its spread in social media, by making simulations of network structures with LLM agents.
+The agents are divided into four categories: spreaders, commentators, diffusors, bystanders. These distinct roles define how agents operate towards the posts they read and write.
+The research focused on different topics, and the main outcome is that political fake news spread faster than other types of topics.
+
+\citet{hu2025simulatingrumorspreadingsocial} simulate networks with LLM agents to study the spread of rumors. They highlight that the network structure and the individual personalities impact the rumor spread.
+
 
 
 
 
 \subsection{Opinion Dynamics}
-<intro> Multiple ways throughout various studies to model opinion dynamics, which is not trivial.
+%<intro> Multiple ways throughout various studies to model opinion dynamics, which is not trivial.
 
 % Mathematical models
 DeGroot is a well-known opinion dynamic model, which considers that individuals are susceptible to other people's opinions. For this reason, each opinion is modeled as a weighted average of the neighbors' opinions.
@@ -58,20 +79,6 @@ Users are exposed every day with random tweets from other users, there is no soc
 \citet{piao2025emergencehumanlikepolarizationlarge} studied the opinion dynamics on thousands of LLM agents, about different topics. They underline that LLMs are capable of reproducing human behavior and phenomenon. They also noticed that LLMs tent to reach a consensus on fact-based topics (such as the flat Earth theory), while they develop a polarization pattern on political topics.
 To get a score out of the agents' opinions, they ask the agents to evaluate their political leaning, which is then converted to a numerical format.
 
-
-
-
-
-\subsection{Misinformation}
-% Misinfo intro
-
-\citet{williams2025hqdisinformation} show that LLMs are able to generate high-quality content in the context of disinformation campaigns, with a high level of humanness that makes it undistinguishable from human content for more than 50\% of the times.
-
-\citet{liu2024tinyslipgiantleap} studies the evolution of fake news and its spread in social media, by making simulations of network structures with LLM agents.
-The agents are divided into four categories: spreaders, commentators, diffusors, bystanders. These distinct roles define how agents operate towards the posts they read and write.
-The research focused on different topics, and the main outcome is that political fake news spread faster than other types of topics.
-
-\citet{hu2025simulatingrumorspreadingsocial} simulate social networks with LLM agents to study the spread of rumors. They highlight that the network structure and the individual personalities impact the rumor spread.
-
+\citet{gao2023s3socialnetworksimulationlarge} models the attitude towards a topic with a Markov model in a binary spectrum, and uses LLMs to evaluate the transitions. There are multiple factors that impact the change in the opinion of an individual, such as the current attitude, the profile and the messages received.
 
 
