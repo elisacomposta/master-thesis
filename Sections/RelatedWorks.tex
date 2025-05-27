@@ -1,38 +1,41 @@
 \section{Related works}
 \label{sec:relatedworks}
 
+% <intro>
+
 \subsection{Simulating Social Networks}
-%<Intro about different social media simulators.>
+
+Social simulations have been developed as a tool to study the behavior of groups of people, addressing the challenges posed by the nonlinear effects of individual interactions \cite{squazzoni2014socialsimulation}.
+Agent-Based Modeling (ABM) focuses on the dynamics of agents at the local level, and shows that these simple interactions can recreate complex social phenomena and group behavior \cite{macy2002abm}.
+Specifically, ABM allows researchers to relate social phenomena at both micro and macro level, showing the causal relation between individual behavior and the structural properties of the network. \cite{squazzoni2014socialsimulation}.
+The main limitations historically highlighted are that individuals follow simple rules \cite{conte2014agent}, and that they lack the capacity to reason and engage in social interaction.\cite{törnberg2023evaluate}
+However, the recent advancements in LLMs offer a new opportunity to overcome the drawbacks of classical ABM systems, as they enable the generation of agents capable of engaging in realistic conversations and reproducing believable human-like behavior \cite{park2023genagents}.
+
+Several recent works have explored the potential of LLM agents in social network simulated environments. Below, we discuss three relevant simulators.
+\medskip
 
 % Törnberg
-\citet{törnberg2023simulatingsocialmediausing} use social media simulations to evaluate how alternative news feed algorithms impact the quality of online conversation, while increasing the interaction between opposing views.
+\citet{törnberg2023evaluate} simulated three social media platforms, each with a specific content recommendation algorithm, to evaluate how alternative news feed algorithms impact the quality of online conversation, while increasing the interaction between opposing views.
 
-The recommended posts for each algorithm are:
-1. The most liked and commented on by the following users
-2. The globally most popular
-3. The ones liked by people of opposing divides (e.g.: Republican post liked by Democrats). They refer to this as "bridging algorithms", as it tries to increase the interactions of people with opposing views.
+The agents in the simulation, powered by LLMs, are individuals initialized with demographic characteristics, political leaning, interests and attitudes, taken from the 2020 American National Election Study (ANES).
+The first platform promotes the most popular posts by following users, while the second one suggests the globally most popular posts. Both algorithms resulted in reduced cross-party interactions and increased toxicity.
+In contrast, the third system introduces a "bridging" algorithm, which recommends the posts popular among users with opposing political views. The result is that the interactions were the least toxic, more constructive, and with more inter-partisan interactions.
 
-- users initialized starting from real data: data from American National Election Study (2020) to initialize demographics characteristics, political leaning (Democrats/Republican), interests and attitudes.
-- they are provided a list of news headlines and summaries, which they can post. Then, they can comment or like the posts they read.
-
-The results showed that the first two algorithms prevented cross-party interaction or increased toxicity, whereas the bridge algorithm was the least toxic, more constructive, and with more inter-partisan interactions.
+This finding highlights the direct impact that content recommender systems have on the quality of online discourse.
+\medskip
 
 % S3
-\citet{gao2023s3socialnetworksimulationlarge} developed a Social-network Simulation System (S3) using LLM-empowered agents, to simulate user behavior in social networks at both individual and population levels, and to evaluate the system’s accuracy using real-world social network data.
+In the social network simulator proposed by \citet{gao2023s3socialnetworksimulationlarge}, the LLM agents keep a memory pool with the most relevant content they posted. This enhances the agents' cognitive coherence and realism, making their behavior and attitudes more realistic.
+The system was then evaluated using real-world social network data on two levels: the considered The system was evaluated using real-world social network data on two levels: at the individual level, aspects such as emotions, attitude, and content generation were considered; at the population level, the focus was on information propagation, and the spread of emotions and attitudes. 
+Results show that the system achieved promising accuracy, and that it was able to reproduce complex real-world trends.
 
-- The considered case studies were Gender Discrimination and Nuclear Energy debates.
-- Each user has a memory pool keeping the most relevant content
-- Evaluated the system accuracy at both individual level (emotion, attitude change, content generation) and population level
-- Good results in simulating individual emotion, attitude change and content generation. At population level, it could correctly replicate real-world trends (like emotion and attitude propagation)
-
+\medskip
 % YSocial
-\citet{rossetti2024ysocialllmpoweredsocial} introduced Y, a social media simulator with LLM agents.
-It allows including real-world data and information, via integration of the RSS.
-The users in this platform can perform the common social media actions (such as posting, commenting, reacting, and following other users).
-Individuals are initialized with interests, political leaning, demographic data and the personality, according to the Big Five traits. \cite{McCrae1992}
-The study showed that this simulator allows the generation of realistic social phenomenon, like virality, polarization, and echo chambers.
-It also highlights that algorithmic bias influences which content becomes more visible and viral.
-
+\citet{rossetti2024ysocialllmpoweredsocial} introduced Y, a social media digital twin, a system designed to digitally replicate a real-world system to allow analysis, simulation and experimentation in a controlled environment.
+The users of these simulations are LLM agents, and they can perform all the common actions available on the most popular social media, including posting, commenting, replying, reacting and following other users. Other modules also allow the integration of images.
+User profiles are enriched with attributes including their interests, political leaning, demographic data and personality, which is defined according to the Big Five model \cite{McCrae1992}.
+To make the simulations even more realistic, Y also includes the possibility of adding external input to the simulation. Specifically, users can share news gathered from selected websites, provided through RSS (Really Simple Syndication) feeds.
+Moreover, Y includes the implementation of various recommender and ranking algorithms to promote specific content or users. This enables further study of the impact the algorithmic curation has on online conversations and users' behavior. This expands the approach of \citet{törnberg2023evaluate}, by offering a more flexible and realistic simulation framework.
 
 
 
