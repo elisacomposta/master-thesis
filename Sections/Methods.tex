@@ -3,20 +3,83 @@
 
 % <intro>
 
-\subsection{Simulation framework: Y}
-% algoritmo di base delle simulazioni - workflow of the simulation
-% content recsys (?)
+\subsection{Simulation framework}
+Algorithm \ref{alg:workflow} show the base workflow of the simulations, which is preserving the original implementation of Y almost entirely.
+The only added modification is the opinion update, at the end of the day, that was not present as it is one thing that I implemented. 
+Also notice that there are some configurable parameters that change the simulation workflow.
+Also notice that in the original implementation it was possible to add and remove agents at the end of the simulated day, which makes the simulations more realistic. However, it was omitted in the algorithm, as this study only focuses on those users who remain subscribed to the platform for the whole studied time. 
+
+Another thing that is different w.r.t. the original implementation is that the actions to perform are selected according to each user's activity, rather than asked to the LLM. This was done to leverage the real data we had available, and to lighten the load on the models.
+
+\begin{algorithm}
+\caption{Simulation workflow}
+\label{alg:workflow}
+\begin{algorithmic}[1]
+\REQUIRE Configuration file
+\STATE Create initial population
+
+\FOR{$day \in n\_days$}
+    \FOR{$round \in n\_rounds$}
+        \STATE Get number of expected active users in the current slot
+        \STATE Randomly sample active users
+        \FOR{$user \in active\_users$}
+            \STATE Select and perform an action
+            \STATE Reply to received mentions
+        \ENDFOR
+    \ENDFOR
+
+    \STATE A subset of the daily actives can search an follow a recommended user
+    \STATE Update opinions
+\ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+
+% content and follow recsys ?
+% which topics they speak about
+% network: how it is initialized and how it can evolve
 
 \subsection{Agents}
 \subsubsection{Initialization}
-% real-data initialization with datasets
+Agents in Y are initialized with demographic data, personality, interests, and others.
+The agents initialized in this work are Italians to be coherent with the context of this work, which is Italian politics before the elections of 2022.
+They are aged 18-60. The aged is sampled in a range, chosen among ["18-24", "25-34", "35-49", "50-60"], where the weight of each range was computed starting from \cite{statista2024twitter}. This study only considered users older than 18, to better represent the voters during the elections, and younger than 60, which was the configuration value proposed by Y, and is a good approximation of the maximum common age on Twitter.
+Similarly, the gender is randomly chosen, weighted aggregating the data from \cite{statista2024twitter}, only considering people aged 18+.
+
+To complete the characterization of the user, other characteristics have been defined using the python faker library: name, surname, email, password and personality, defined according to the Big 5 personality traits.
+
+To make the user even more realistic, some features have been initialized starting from real-world data. The dataset proposed by \citet{pierri2023ita} ... % <info about the dataset>
+Specifically, data initialized with the dataset are: the political leaning, the toxicity in writing tweets and replies, and the activity.
+The activity is obtained by converting the number of tweets written by each user into a continuous value in the range 0-1, with the logarithmic normalization:
+$\min\left( \frac{\log(1 + n_{\text{posts}})}{\log(1 + n_{\text{post\_max}})},\ 1.0 \right)
+$
+where $post_max$ is the 99.5 percentile, to reduce the impact of outliers.
+
+All users are initialized with four interests, which correspond to all the four topics discussed in this work: immigration, nuclear energy, civil rights, Reddito di Cittadinanza.
+
+To perform an action, the LLM agent is prompted both with the instructions to follow and with the user profile, which includes the data introduced above and the opinion of the person and the supporting party.
+You can find the prompts in the appendix.
+
+
 
 \subsubsection{General behavior}
-% possible actions, prompts in appendix
+Agents can perform different actions: post, comment, read.
+\begin{itemize}
+    \item $post$: writing a tweet about one of the topics.
+    \item $comment$: after reading a tweet, the agent is asked to comment it. He can then decide to add a reaction (like or dislike), and follow (unfollow) the author.
+    \item $read$: after reading a post, the agent decides if he wants to add a reaction and follow (unfollow) the author of the post, without adding any contribution.
+\end{itemize}
+
+The action to performed is selected according to the activity of the user to post or comment. The probability to perform a "read" action is what's left from the other probabilities.
+The prompts with the instructions can be found in the appendix.
 
 \subsubsection{Misinformation agents}
-% how they produce misinformation and how they differ from normal agents
-% include prompts
+Some agents are designated to produce misinformation. They are interpreting normal people, who try to support their views by using emotion, selective facts, or made-up data. They are not coordinated agents nor bots.
+As all other agents, they are initialized with personal data, and use the same prompt describing the individual, before performing any action.
+Coalitions are equally distributed among misinformation agents.
+The toxicity of writing posts and comments are randomly generated, based on the curve that best fits the real data, given the coalition.
+In a similar way, after computing the best fit of the number of posts and comments written, these values are randomly generated, and then converted to activity, analogously to what is done in normal agent initialization.
+The prompt are available in the Appendix.
 
 \subsection{Opinion modeling and update}
 \subsubsection{Implemented opinion models}
