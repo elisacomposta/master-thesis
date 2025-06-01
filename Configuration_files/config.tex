@@ -86,3 +86,15 @@
 \patchcmd{\headrule}{\hrule}{\color{black}\hrule}{}{} % headrule
 \patchcmd{\footrule}{\hrule}{\color{black}\hrule}{}{} % footrule
 \makeatother
+
+% Style for prompts
+\tcbset{
+  promptbox/.style={
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    fonttitle=\bfseries,
+    title=Prompt,
+    sharp corners,
+    boxrule=0.5pt
+  }
+}

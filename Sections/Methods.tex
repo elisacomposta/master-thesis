@@ -51,8 +51,10 @@ To complete the characterization of the user, other characteristics have been de
 To make the user even more realistic, some features have been initialized starting from real-world data. The dataset proposed by \citet{pierri2023ita} ... % <info about the dataset>
 Specifically, data initialized with the dataset are: the political leaning, the toxicity in writing tweets and replies, and the activity.
 The activity is obtained by converting the number of tweets written by each user into a continuous value in the range 0-1, with the logarithmic normalization:
-$\min\left( \frac{\log(1 + n_{\text{posts}})}{\log(1 + n_{\text{post\_max}})},\ 1.0 \right)
-$
+\[
+\min\left( \frac{\log(1 + n_{\text{posts}})}{\log(1 + n_{\text{post\_max}})},\ 1.0 \right)
+\]
+
 where $post_max$ is the 99.5 percentile, to reduce the impact of outliers.
 
 All users are initialized with four interests, which correspond to all the four topics discussed in this work: immigration, nuclear energy, civil rights, Reddito di Cittadinanza.
@@ -82,9 +84,75 @@ In a similar way, after computing the best fit of the number of posts and commen
 The prompt are available in the Appendix.
 
 \subsection{Opinion modeling and update}
+Modeling the opinion is one of the crucial aspects for this works. A good opinion modeling means more realistic simulation of the agent behavior and believes.
+In this work, we have implemented two types of opinion models in parallel. The first is the mathematical way, and we have implemented some basic score aggregation and various known models. The second better leverages LLM reasoning capabilities, to both express the textual opinion, and assign a score. 
+In this subsection we'll enter into the details of these methods implemented.
+
 \subsubsection{Implemented opinion models}
-% include relevant formulas
+% median, weighted mean
+The most basic implementation of opinions are the median and the weighted mean of previous scores, for each individual. These can be used where the opinion scores are externally added, and a final opinion evaluator is needed. For instance, after writing a tweet a score might be extracted and considered as the current user belief. To aggregate all these values to give an overall opinion of the individual, these ways can be used.
+
+% friedkin johnsen
+A well-known mathematical model of opinion dynamics is the Friedkin-Johnsen model. As introduced in the previous section, it considers both the user initial opinion and the opinion of the user neighbors (the following, in our case), weighted by a susceptibility value.
+The implemented formula is the following:
+\[
+x_i(t + 1) = (1 - \lambda_i) x_i(0) + \lambda_i  \sum_{j \in N_i(t)} w_{ij} x_j (t)
+\]
+where $x_i$ is the opinion of individual $i$, $N_i$ is the set of following users, and $\lambda$ is the susceptibility to other users. 
+Note that in this first implementation neighbors are followed users, and they all have the same weight.
+The susceptibility is a score in the range 0-1 (0 means not susceptible, 1 very susceptible), and is assigned according to the user personality, assigned in the agent initialization phase. Specifically, it is the mean of the susceptibility scores for each assigned personality trait. These scores are visible in Table \ref{tab:susceptibility}, and have been assigned based on to the work presented by \citet{oyibo2019personality}, which highlights the personality impact on the social susceptibility. For the traits that are not mentioned to have a clear strong impact, the neutral score has been assigned.
+
+\begin{table}
+\centering
+\begin{tabular}{|l|l|c|l|c|}
+\hline
+\textbf{Trait} & \textbf{High} & \textbf{High Score} & \textbf{Low} & \textbf{Low Score} \\
+\hline
+Neuroticism        & sensitive/nervous         & 0.9 & resilient/confident     & 0.1 \\
+Openness           & inventive/curious         & 0.2 & consistent/cautious     & 0.6 \\
+Conscientiousness  & efficient/organized       & 0.2 & extravagant/careless    & 0.6 \\
+Extroversion       & outgoing/energetic        & 0.5 & solitary/reserved       & 0.5 \\
+Agreeableness      & friendly/compassionate    & 0.5 & critical/judgmental     & 0.5 \\
+\hline
+\end{tabular}
+\caption{Big Five personality traits with associated descriptions and assigned scores.}
+\label{tab:susceptibility}
+\end{table}
+
+% state dependent friedkin-johnsen
+Another implementation implemented for this work is an extension of the Friedkin-Johnsen model which is state-dependent, as it considers the influence of the current opinion, rather than the initial one \cite{Ye2018Opinion}:
+\[
+x_i(t + 1) = (1 - \lambda) x_i(t) + \lambda  \sum_{j \in N_i(t)} w_{ij} x_j (t)
+\]
+
+% weighted state depended fj
+The last implementation is the state dependent Friedkin-Johnsen model just introduced, but with different scores for the neighbors. 
+First of all, neighbors are not only followed users, but all users the individual has interacted with, since the last opinion update, and their weight depends on the interactions. 
+The scores are assigned as follows: following user +1; like/dislike: ±0.2
+
+% The scores are visible in Table \ref{tab:action_scores}.
+% \begin{table}[h]
+%     \centering
+%     \begin{tabular}{|l|c|}
+%         \hline
+%         \textbf{Action} & \textbf{Weight}\\
+%         \hline
+%          following & +1\\
+%          like & +0.2\\
+%          dislike & -0.2\\
+%          \hline
+%     \end{tabular}
+%     \caption{Caption}
+%     \label{tab:action_scores}
+% \end{table}
+
 
 \subsubsection{LLM-based opinion update}
-% memory, prompts
-% how score is extracted
+Another possibility is to use LLM agents to update the opinion of the users they are impersonating.
+In this case, they are prompted with the description of the topics to update and their coalition believes, their profile and previous opinion and the memory of what they have done since the last opinion update.
+
+Specifically, the memory tracks the post a user reads and writes, what he replies, the reactions, and whether he changes the follow status with another user, after an interaction. 
+
+The LLM is also asked to assign a stance towards the topics to update, choosing among a set of given labels. This allows the easy extraction of a numerical score, which is useful for the opinion analysis.
+
+All prompts can be found in the appendix.
