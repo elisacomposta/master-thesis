@@ -4,40 +4,43 @@
 % <intro>
 
 \subsection{Simulation framework}
-Algorithm \ref{alg:workflow} show the base workflow of the simulations, which is preserving the original implementation of Y almost entirely.
-The only added modification is the opinion update, at the end of the day, that was not present as it is one thing that I implemented. 
-Also notice that there are some configurable parameters that change the simulation workflow.
-Also notice that in the original implementation it was possible to add and remove agents at the end of the simulated day, which makes the simulations more realistic. However, it was omitted in the algorithm, as this study only focuses on those users who remain subscribed to the platform for the whole studied time. 
+Algorithm \ref{alg:workflow} describes the base workflow of the simulations. It preserves the core implementation proposed by Y, with the addition of the opinion update at the end of the day.
 
-Another thing that is different w.r.t. the original implementation is that the actions to perform are selected according to each user's activity, rather than asked to the LLM. This was done to leverage the real data we had available, and to lighten the load on the models.
+At the beginning of the simulation, there is the creation of the population of users. Even though they are initially not connected, agents will be able to make (and remove) new connection during the simulation, allowing the formation and evolution of a network structure.
+
+The original framework also allows to manage a percentage of users that can leave or join the platform daily. This is omitted in the algorithm, as this study only focuses on those users who remain subscribed to the platform for the whole simulated time frame. 
 
 \begin{algorithm}
 \caption{Simulation workflow}
 \label{alg:workflow}
 \begin{algorithmic}[1]
-\REQUIRE Configuration file
-\STATE Create initial population
+\STATE $agents \gets create\_population$
 
 \FOR{$day \in n\_days$}
     \FOR{$round \in n\_rounds$}
-        \STATE Get number of expected active users in the current slot
-        \STATE Randomly sample active users
-        \FOR{$user \in active\_users$}
-            \STATE Select and perform an action
-            \STATE Reply to received mentions
+        \STATE $n\_actives \gets len(agents) \times hourly\_activity[round]$
+        \STATE $active\_agents \gets sample(agents, n\_actives)$ 
+        \FOR{$agent \in active\_agents$}
+            \STATE $agent.select\_action()$
+            \STATE $agent.reply\_mentions$
         \ENDFOR
     \ENDFOR
 
-    \STATE A subset of the daily actives can search an follow a recommended user
-    \STATE Update opinions
+    \STATE $sel\_agents \gets sample(daily\_actives, percentage\_daily\_follows)$
+    \FOR{$agent \in sel\_agents$}
+        \STATE $agent.search\_and\_follow()$
+    \ENDFOR
+    
+    \FOR{$agent \in daily\_actives$}
+        \STATE $agent.update\_opinions$
+    \ENDFOR
+
 \ENDFOR
 \end{algorithmic}
 \end{algorithm}
 
+% Add description
 
-% content and follow recsys ?
-% which topics they speak about
-% network: how it is initialized and how it can evolve
 
 \subsection{Agents}
 \subsubsection{Initialization}
@@ -72,8 +75,13 @@ Agents can perform different actions: post, comment, read.
     \item $read$: after reading a post, the agent decides if he wants to add a reaction and follow (unfollow) the author of the post, without adding any contribution.
 \end{itemize}
 
-The action to performed is selected according to the activity of the user to post or comment. The probability to perform a "read" action is what's left from the other probabilities.
+The action to performed is selected according to the activity of the user to post or comment. 
+The original implementation let the agent choose the action, but this was removed in favor of the probabilities, to leverage the real data available, in order to describe the user behavior.
+The probability to perform a "read" action is what's left from the other probabilities.
 The prompts with the instructions can be found in the appendix.
+
+% content and follow recsys ?
+% which topics they speak about
 
 \subsubsection{Misinformation agents}
 Some agents are designated to produce misinformation. They are interpreting normal people, who try to support their views by using emotion, selective facts, or made-up data. They are not coordinated agents nor bots.
