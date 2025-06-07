@@ -74,7 +74,9 @@
 \newcommand{\e}[1]{\times 10^{#1}}  % Powers of 10 notation
 \newcommand{\mathbbm}[1]{\text{\usefont{U}{bbm}{m}{n}#1}} % From mathbbm.sty
 \newcommand{\pdev}[2]{\frac{\partial#1}{\partial#2}}
-% NB: you can also override some existing commands with the keyword \renewcommand
+\newcommand{\COMMENTLINE}[1]{%
+  \STATE \textcolor{gray}{// #1}%
+}
 
 % Do not change Configuration_files/config.tex file unless you really know what you are doing. 
 % This file ends the configuration procedures (e.g. customizing commands, definition of new commands)

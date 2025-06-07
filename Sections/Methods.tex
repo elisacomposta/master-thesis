@@ -1,38 +1,56 @@
 \section{Methods}
 \label{sec:methods}
 
-% <intro>
+This section provides a description of the simulator and the implemented features.
+First, it introduces the framework and its workflow.
+Then, it details agent modeling, their initialization and behavior.
+Finally, the implemented opinion models are described, including the impact of agent behavior on their opinions.
 
-\subsection{Simulation framework}
-Algorithm \ref{alg:workflow} describes the base workflow of the simulations. It preserves the core implementation proposed by Y, with the addition of the opinion update at the end of the day.
+\subsection{Simulation workflow}
+This work is based on Y, a social media digital twin \cite{rossetti2024ysocialllmpoweredsocial}.
+Algorithm \ref{alg:workflow} describes the base workflow of the simulations. 
+It preserves the core implementation, and extends it to include the opinion update at the end of the day.
+The framework can be customized through a configuration file, which allows the specification of many parameters to model the desired environment.
 
-At the beginning of the simulation, there is the creation of the population of users. Even though they are initially not connected, agents will be able to make (and remove) new connection during the simulation, allowing the formation and evolution of a network structure.
+The population of agents is initially created without any predefined network.
+Throughout the simulation, agents can form and remove connections, allowing the network structure to emerge and evolve.
 
-The original framework also allows to manage a percentage of users that can leave or join the platform daily. This is omitted in the algorithm, as this study only focuses on those users who remain subscribed to the platform for the whole simulated time frame. 
+In each round, a number of active agents is sampled, according to the hourly activity defined in the configuration file.
+Agents then perform their action, detailed in the next subsection, and eventually reply to received mentions.
+%At the end of each day, a subsample of users are selected to follow a recommended user.
+Finally, agents are asked to update their opinion on the topics they discussed during the day.
+
+The original framework also allows to manage a percentage of agents that can leave or join the platform daily. This is omitted in the algorithm, as this study only focuses on those users who remain subscribed to the platform for the whole simulated time frame. 
 
 \begin{algorithm}
 \caption{Simulation workflow}
 \label{alg:workflow}
 \begin{algorithmic}[1]
-\STATE $agents \gets create\_population$
+\COMMENTLINE{Agents creation and initialization}
+\STATE $agents \gets create\_population()$
 
+\COMMENTLINE{Simulation loop}
 \FOR{$day \in n\_days$}
     \FOR{$round \in n\_rounds$}
+        \COMMENTLINE{Sample agents active in the current round}
         \STATE $n\_actives \gets len(agents) \times hourly\_activity[round]$
         \STATE $active\_agents \gets sample(agents, n\_actives)$ 
         \FOR{$agent \in active\_agents$}
+            \COMMENTLINE{Perform actions}
             \STATE $agent.select\_action()$
-            \STATE $agent.reply\_mentions$
+            \STATE $agent.reply\_mentions()$
         \ENDFOR
     \ENDFOR
 
+    \COMMENTLINE{Add new connections}
     \STATE $sel\_agents \gets sample(daily\_actives, percentage\_daily\_follows)$
     \FOR{$agent \in sel\_agents$}
         \STATE $agent.search\_and\_follow()$
     \ENDFOR
-    
+
+    \COMMENTLINE{Opinion update}
     \FOR{$agent \in daily\_actives$}
-        \STATE $agent.update\_opinions$
+        \STATE $agent.update\_opinions()$
     \ENDFOR
 
 \ENDFOR
@@ -80,8 +98,6 @@ The original implementation let the agent choose the action, but this was remove
 The probability to perform a "read" action is what's left from the other probabilities.
 The prompts with the instructions can be found in the appendix.
 
-% content and follow recsys ?
-% which topics they speak about
 
 \subsubsection{Misinformation agents}
 Some agents are designated to produce misinformation. They are interpreting normal people, who try to support their views by using emotion, selective facts, or made-up data. They are not coordinated agents nor bots.
