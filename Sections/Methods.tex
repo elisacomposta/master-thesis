@@ -57,32 +57,37 @@ The original framework also allows to manage a percentage of agents that can lea
 \end{algorithmic}
 \end{algorithm}
 
-% Add description
 
 
 \subsection{Agents}
+% Intro about the complexity of agents and the ability of LLMs to impersonate them (?)
+
 \subsubsection{Initialization}
-Agents in Y are initialized with demographic data, personality, interests, and others.
-The agents initialized in this work are Italians to be coherent with the context of this work, which is Italian politics before the elections of 2022.
-They are aged 18-60. The aged is sampled in a range, chosen among ["18-24", "25-34", "35-49", "50-60"], where the weight of each range was computed starting from \cite{statista2024twitter}. This study only considered users older than 18, to better represent the voters during the elections, and younger than 60, which was the configuration value proposed by Y, and is a good approximation of the maximum common age on Twitter.
-Similarly, the gender is randomly chosen, weighted aggregating the data from \cite{statista2024twitter}, only considering people aged 18+.
+Agents in Y are initialized with various profile features, which contributes to the creation of users with a detailed description and characterization.
 
-To complete the characterization of the user, other characteristics have been defined using the python faker library: name, surname, email, password and personality, defined according to the Big 5 personality traits.
+% Random data and personality
+Some dimensions are randomly sampled: name, surname, email, password and personality.
+Specifically, the personality is defined according to the Five-Factor Model \cite{McCrae1992}, mostly known as the Big Five model. 
+Users can be either high or low in each dimension, as described Table \ref{tab:susceptibility}, which leads to at most 32 distinct personality types.
 
-To make the user even more realistic, some features have been initialized starting from real-world data. The dataset proposed by \citet{pierri2023ita} ... % <info about the dataset>
-Specifically, data initialized with the dataset are: the political leaning, the toxicity in writing tweets and replies, and the activity.
-The activity is obtained by converting the number of tweets written by each user into a continuous value in the range 0-1, with the logarithmic normalization:
+\medskip
+% Age and gender
+In this study, the age and gender of agents are randomly assigned, weighted according to 2024 Twitter statistics \cite{statista2024twitter}. Only the data for people aged 18 and above were considered, and the maximum age is set to 60, in line with the value in the original configuration of Y.
+
+% Nationality and interests
+Moreover, all agents are set with Italian nationality, in order to guarantee coherency with the context of the presented case study, and they are configured with four interests, corresponding to the four topics analyzed in this study: \textit{Immigration}, \textit{Nuclear energy}, \textit{Civil rights}, \textit{Reddito di Cittadinanza}.
+
+\medskip
+% Attributes from real data
+To make the users even more realistic, some attributes have been initialized starting from real-world data, based on the dataset presented by \citet{pierri2023ita}. This includes Twitter posts collected around the Italian political elections in 2022.
+Specifically, the attributes initialized from the dataset in this work are: the political leaning, the toxicity in writing posts and comments, and the activity level.
+The activity is computed by converting the number of tweets written by each user into a continuous value in the range $[0,1]$, using the following logarithmic normalization:
+
 \[
-\min\left( \frac{\log(1 + n_{\text{posts}})}{\log(1 + n_{\text{post\_max}})},\ 1.0 \right)
+activity_x = \min\left( \frac{\log(1 + n\_posts_x)}{\log(1 + N_{99.5})},\ 1.0 \right)
 \]
 
-where $post_max$ is the 99.5 percentile, to reduce the impact of outliers.
-
-All users are initialized with four interests, which correspond to all the four topics discussed in this work: immigration, nuclear energy, civil rights, Reddito di Cittadinanza.
-
-To perform an action, the LLM agent is prompted both with the instructions to follow and with the user profile, which includes the data introduced above and the opinion of the person and the supporting party.
-You can find the prompts in the appendix.
-
+where $n\_posts_x$ is the number of posts written by user $x$, and $N_{99.5}$ is the 99.5th percentile, used to mitigate the impact of outliers.
 
 
 \subsubsection{General behavior}
@@ -97,6 +102,8 @@ The action to performed is selected according to the activity of the user to pos
 The original implementation let the agent choose the action, but this was removed in favor of the probabilities, to leverage the real data available, in order to describe the user behavior.
 The probability to perform a "read" action is what's left from the other probabilities.
 The prompts with the instructions can be found in the appendix.
+
+% When performing an action, not only the prompt but also the agent role definition (see prompts below) -> agent roleplay
 
 
 \subsubsection{Misinformation agents}
@@ -126,20 +133,34 @@ where $x_i$ is the opinion of individual $i$, $N_i$ is the set of following user
 Note that in this first implementation neighbors are followed users, and they all have the same weight.
 The susceptibility is a score in the range 0-1 (0 means not susceptible, 1 very susceptible), and is assigned according to the user personality, assigned in the agent initialization phase. Specifically, it is the mean of the susceptibility scores for each assigned personality trait. These scores are visible in Table \ref{tab:susceptibility}, and have been assigned based on to the work presented by \citet{oyibo2019personality}, which highlights the personality impact on the social susceptibility. For the traits that are not mentioned to have a clear strong impact, the neutral score has been assigned.
 
-\begin{table}
+\begin{table}[h]
 \centering
-\begin{tabular}{|l|l|c|l|c|}
+\begin{tabular}{|l|l|l|c|}
 \hline
-\textbf{Trait} & \textbf{High} & \textbf{High Score} & \textbf{Low} & \textbf{Low Score} \\
+\textbf{Trait} & \textbf{Trait level} & \textbf{Description} & \textbf{Susceptibility score} \\
 \hline
-Neuroticism        & sensitive/nervous         & 0.9 & resilient/confident     & 0.1 \\
-Openness           & inventive/curious         & 0.2 & consistent/cautious     & 0.6 \\
-Conscientiousness  & efficient/organized       & 0.2 & extravagant/careless    & 0.6 \\
-Extroversion       & outgoing/energetic        & 0.5 & solitary/reserved       & 0.5 \\
-Agreeableness      & friendly/compassionate    & 0.5 & critical/judgmental     & 0.5 \\
+\multirow{2}{*}{Neuroticism}       
+  & High & sensitive/nervous         & 0.9 \\
+  & Low & resilient/confident        & 0.1 \\
+\hline
+\multirow{2}{*}{Openness to experience}          
+  & High & inventive/curious         & 0.2 \\
+  & Low & consistent/cautious        & 0.6 \\
+\hline
+\multirow{2}{*}{Conscientiousness} 
+  & High & efficient/organized       & 0.2 \\
+  & Low & extravagant/careless       & 0.6 \\
+\hline
+\multirow{2}{*}{Extroversion}      
+  & High & outgoing/energetic        & 0.5 \\
+  & Low & solitary/reserved          & 0.5 \\
+\hline
+\multirow{2}{*}{Agreeableness}     
+  & High & friendly/compassionate    & 0.5 \\
+  & Low & critical/judgmental        & 0.5 \\
 \hline
 \end{tabular}
-\caption{Big Five personality traits with associated descriptions and assigned scores.}
+\caption{The table shows the susceptibility scores assigned to each personality trait. Values range from 0 (not susceptible) to 1 (highly susceptible).}
 \label{tab:susceptibility}
 \end{table}
 
