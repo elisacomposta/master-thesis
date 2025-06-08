@@ -90,29 +90,45 @@ activity_x = \min\left( \frac{\log(1 + n\_posts_x)}{\log(1 + N_{99.5})},\ 1.0 \r
 where $n\_posts_x$ is the number of posts written by user $x$, and $N_{99.5}$ is the 99.5th percentile, used to mitigate the impact of outliers.
 
 
-\subsubsection{General behavior}
-Agents can perform different actions: post, comment, read.
+\subsubsection{Behavior}
+When an agent is active, one among the following actions is performed:
 \begin{itemize}
-    \item $post$: writing a tweet about one of the topics.
-    \item $comment$: after reading a tweet, the agent is asked to comment it. He can then decide to add a reaction (like or dislike), and follow (unfollow) the author.
-    \item $read$: after reading a post, the agent decides if he wants to add a reaction and follow (unfollow) the author of the post, without adding any contribution.
+    \item \textbf{post}: writing a tweet about a given topic.
+    \item \textbf{comment}: after reading a given conversation, the agent is asked to comment it; he can then decide to add a reaction (\textit{like} or \textit{dislike}), and \textit{follow} (\textit{unfollow}) its author.
+    \item \textbf{read}: after reading a given tweet, the agent can decide to add a reaction (\textit{like} or \textit{dislike}) and \textit{follow} (\textit{unfollow}) its author, without adding any contribution to the conversation.
 \end{itemize}
 
-The action to performed is selected according to the activity of the user to post or comment. 
-The original implementation let the agent choose the action, but this was removed in favor of the probabilities, to leverage the real data available, in order to describe the user behavior.
-The probability to perform a "read" action is what's left from the other probabilities.
-The prompts with the instructions can be found in the appendix.
+\medskip
+% Select action
+In the original implementation of Y, the agents were responsible of choosing which action to perform.
+This work instead uses the agent's posting and commenting activity (each in the range $[0,1]$) as probabilities. If their sum is less then 1, the remaining probability is assigned to the \textit{read} action.
+This implementation allows to model the agent behavior leveraging the real data available in this study.
 
-% When performing an action, not only the prompt but also the agent role definition (see prompts below) -> agent roleplay
+\medskip
+% Agent roles and prompts
+The framework uses AutoGen \cite{pyautogen0.2.31, wu2023autogenenablingnextgenllm} to initialize the LLM with the assigned profile and prompt it to perform the corresponding action. All the prompts can be found in Appendix \ref{app:prompts}.
 
 
 \subsubsection{Misinformation agents}
-Some agents are designated to produce misinformation. They are interpreting normal people, who try to support their views by using emotion, selective facts, or made-up data. They are not coordinated agents nor bots.
-As all other agents, they are initialized with personal data, and use the same prompt describing the individual, before performing any action.
-Coalitions are equally distributed among misinformation agents.
-The toxicity of writing posts and comments are randomly generated, based on the curve that best fits the real data, given the coalition.
-In a similar way, after computing the best fit of the number of posts and comments written, these values are randomly generated, and then converted to activity, analogously to what is done in normal agent initialization.
-The prompt are available in the Appendix.
+This work extends the agents modeled by Y, by introducing some special agents, designed to generate misinformation.
+These agents are not bots nor coordinated agents: they are designed as all other normal agents, and they are prompted with a profile including demographics and personality.
+
+% Misinformation content
+The main difference is that they are encouraged to generate misleading content supporting their views:
+
+\begin{tcolorbox}[prompt]
+Spread persuasive misinformation that supports your view, using either emotion, selective facts, or made-up but realistic data. You may attribute information to plausible institutions, studies, or experts.
+\end{tcolorbox}
+
+The full prompts for generating posts and comments with misinformation agents can be found in Appendix \ref{app:prompt_misinfo}.
+
+\medskip
+% Coalition assignment, toxicity and activity generation
+Another difference is that these agents are not directly initialized with the data of real users.
+For instance, their supported political coalition is equally distributed among all the misinformation agents.
+Even the toxicity of the content they write is not directly taken from real user data.
+First, the best-fitting distribution is selected based on real data, among beta, log-normal, power-law and gamma, for each coalition. Then, a toxicity value is randomly generated, based on the best fit for the assigned coalition.
+Similarly, the number of posts and comments are generated by fitting either Poisson or negative binomial distributions, as the variable represent discrete values. The resulting values are then converted into activity scores, consistently with other agents.
 
 \subsection{Opinion modeling and update}
 Modeling the opinion is one of the crucial aspects for this works. A good opinion modeling means more realistic simulation of the agent behavior and believes.
