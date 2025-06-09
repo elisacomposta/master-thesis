@@ -147,7 +147,8 @@ Read the conversation below and write a tweet that directly engages with only on
 \label{app:prompt_opinion}
 
 \begin{tcolorbox}[prompt]
-You are updating your character's opinions based strictly on the interactions below. Be consistent with your character's beliefs and personality as previously defined.\texttt{\{bias\_instructions\}}\\
+You are updating your character's opinions based strictly on the interactions below. Be consistent with your character's beliefs and personality as previously defined.\\
+- \texttt{\{bias\_instructions\}}\\
 - Update only the following topics: \texttt{\{topics\}}\\
 - Do not introduce external reasoning or general considerations.\\
 - Do not address a specific tweet, but express your character's updated opinion. The opinion must reflect the character's position on the topic as defined in the topic descriptions, not their reaction to individual statements or posts.\\

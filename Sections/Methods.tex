@@ -221,21 +221,36 @@ Specifically, the memory tracks the posts a user reads and writes, the replies, 
 With all this knowledge, the LLMs are prompted to provide their updated opinion in a textual format.
 They are also asked to assign a stance to each of the updated topics, choosing among a set of given labels. This allows to easily extract a numerical score, according to the conversion visible in Table \ref{tab:stance}, and is useful for later analysis.
 
-The full prompt can be found in Appendix \ref{app:prompt_opinion}.
-
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|c|}
 \hline
 \textbf{Stance} & \textbf{Score} \\
 \hline
-STRONGLY OPPOSED   & $-1$ \\
+STRONGLY OPPOSED   & $-1.0$ \\
 OPPOSED            & $-0.5$ \\
 NEUTRAL            & $0$ \\
-SUPPORTIVE         & $0.5$ \\
-STRONGLY SUPPORTIVE & $1$ \\
+SUPPORTIVE         & $+0.5$ \\
+STRONGLY SUPPORTIVE & $+1.0$ \\
 \hline
 \end{tabular}
 \caption{Mapping agents' stance from textual labels to numerical scores.}
 \label{tab:stance}
 \end{table}
+
+% Bias instruction
+\medskip
+% Why we add bias instruction + cite
+
+The prompt to update the opinion also includes a confirmation bias, because it was shown in this work <cite> that it creates more realistic agent behavior. % check paper
+In this work, two possible biases can be used. The base bias, used for all "normal" agents, proposed by <cite>, and is the following:
+\begin{tcolorbox}[prompt]
+    Keep in mind that you are simulating a real person in this role-play. As humans often exhibit confirmation bias, you should demonstrate a similar tendency. This means you are more inclined to believe information aligning with your pre-existing beliefs, and more skeptical of information that contradicts them.
+\end{tcolorbox}
+
+Misinformation agents are instead modeled with a stronger confirmation bias, as they are modeled to strongly support their views. The instruction, taken from <cite>, is here reported:
+\begin{tcolorbox}[prompt]
+    Remember, you are role-playing as a real person. You have a strong confirmation bias. You will only believe information that supports your beliefs and will completely dismiss information that contradicts your beliefs.
+\end{tcolorbox}
+
+The full prompt can be found in Appendix \ref{app:prompt_opinion}.
