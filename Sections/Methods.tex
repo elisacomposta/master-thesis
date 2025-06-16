@@ -67,7 +67,7 @@ Agents in Y are initialized with various profile features, which contributes to 
 
 % Random data and personality
 Some dimensions are randomly sampled: name, surname, email, password and personality.
-Specifically, the personality is defined according to the Five-Factor Model \cite{McCrae1992}, mostly known as the Big Five model. 
+Specifically, the personality is defined according to the Five-Factor Model \cite{barrick1991bigfive, McCrae1992}, mostly known as the Big Five model. 
 Users can be either high or low in each dimension, as described Table \ref{tab:susceptibility}, which leads to at most 32 distinct personality types.
 
 \medskip
@@ -106,7 +106,13 @@ This implementation allows to model the agent behavior leveraging the real data 
 
 \medskip
 % Agent roles and prompts
-The framework uses AutoGen \cite{pyautogen0.2.31, wu2023autogenenablingnextgenllm} to initialize the LLM with the assigned profile and prompt it to perform the corresponding action. All the prompts can be found in Appendix \ref{app:prompts}.
+The framework uses AutoGen \cite{pyautogen0.2.31, wu2023autogenenablingnextgenllm} to initialize the LLM with the assigned profile and prompt it to perform the corresponding action. 
+
+Specifically, the prompt to initialize the agent with its role is the following: 
+
+\input{prompts/agent_roleplay}
+
+All the prompts with the instructions to perform an action can be found in Appendix \ref{app:prompt_actions}.
 
 
 \subsubsection{Misinformation agents}
@@ -240,17 +246,21 @@ STRONGLY SUPPORTIVE & $+1.0$ \\
 
 % Bias instruction
 \medskip
-% Why we add bias instruction + cite
+The prompt to update the opinion also includes a confirmation bias. This allows to get a greater opinion fragmentation, as discussed in previous studies \cite{chuang2024simulatingopiniondynamicsnetworks}.
 
-The prompt to update the opinion also includes a confirmation bias, because it was shown in this work <cite> that it creates more realistic agent behavior. % check paper
-In this work, two possible biases can be used. The base bias, used for all "normal" agents, proposed by <cite>, and is the following:
+The presented research proposes two levels of bias, in order to to differentiate the behavior of misinformation agents from the rest of the population.
+The base bias, proposed by \cite{Liu_2024}, is the following:
+
 \begin{tcolorbox}[prompt]
     Keep in mind that you are simulating a real person in this role-play. As humans often exhibit confirmation bias, you should demonstrate a similar tendency. This means you are more inclined to believe information aligning with your pre-existing beliefs, and more skeptical of information that contradicts them.
 \end{tcolorbox}
 
-Misinformation agents are instead modeled with a stronger confirmation bias, as they are modeled to strongly support their views. The instruction, taken from <cite>, is here reported:
+
+Misinformation agents are instead prompted with a strong confirmation bias. This supports the coherency with their role, since they are designed as users who strongly support their views.
+The instruction, presented by \cite{chuang2024simulatingopiniondynamicsnetworks}, is shown below:
+
 \begin{tcolorbox}[prompt]
     Remember, you are role-playing as a real person. You have a strong confirmation bias. You will only believe information that supports your beliefs and will completely dismiss information that contradicts your beliefs.
 \end{tcolorbox}
 
-The full prompt can be found in Appendix \ref{app:prompt_opinion}.
+The full prompt for the opinion update can be found in Appendix \ref{app:prompt_opinion}.
