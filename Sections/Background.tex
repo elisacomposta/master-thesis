@@ -3,7 +3,7 @@
 
 % <intro>
 
-\subsection{LLMs} % 1
+\subsection{Large Language Models}
 % Intro
 A Large Language Model (LLM) is a model of Artificial Intelligence (AI), based on neural networks, designed to understand and generate text in natural language.
 
@@ -58,28 +58,96 @@ Moreover, the lack of explainability is a significant limitation. LLMs are compl
 Finally, privacy is another frequently discussed issue. During the training phase, LLMs may be exposed to sensitive data, which could potentially be reproduced in later outputs. This raises concerns about data misuse and highlights the need for clear rules to protect personal information.
 
 
+\subsubsection{LLMs in Agent-Based Modeling}
+% What it is
+Agent-Based Modeling (ABM) is a method used to simulate complex systems starting from the behavior of single individuals, called agents.
+Each agent acts according to specific rules, and the interaction between multiple agents enables the emergence of collective phenomena and global dynamics.
+This mechanism makes it possible to study how local behavior, at individual level, can have an impact on the raise of phenomena on a large scale, passing from a micro to a macro level.
 
-% Agent-Based modeling(?) % 1
-% AutoGen (?) % 0.5
-% Personality modeling with Big Five % 0.5
+ABMs are widely used in the study of social phenomena, such as information diffusion, group dynamics, or the emergence of complex social structure.
+
+% Limitations of traditional ABMs
+\medskip
+However, traditional ABMs have some limitations.
+Agents are generally described by a set of simple and fixed rules, which prevents them from adapting to new situations or reason autonomously \cite{conte2014agent, törnberg2023evaluate}.
+This makes it hard to realistically represent human behavior. Specifically, agents lack some important aspects of communication and social interactions, such as the tone, the emotions, or the ability to develop a personal idea based on the context.
+These limitation are mostly evident when trying to simulate complex social contexts, like digital platforms, where the the interactions are influenced by the language and multiple other external factors.
+
+% LLM potential
+\medskip
+In the last years, however, LLMs have started to be integrated in Agent-Based systems.
+These models allow to define more complex and realistic agents: they can generate text, discuss, express opinions and reason on a given topic. 
+In this way, agents are more similar to real individuals.
+Moreover, LLMs can be designed to impersonate specific given profiles. They can have their own personality, emotions, political leaning and memory of the interactions, and behave accordingly.
+
+For these reasons, LLMs provide the means to realistically simulate complex phenomena at both individual level (for example with confirmation bias), and at global level (for instance with polarization and echo chambers).
+
+\medskip
+This recent integration of LLMs and ABM was at the basis of many advanced social simulators.
+Among these, there is also Y simulator, presented by \citet{rossetti2024ysocialllmpoweredsocial}, at the basis of this work.
+In Y, each agent is represented by an LLM, who can perform the complex actions typical of a social media (including posting, replying and following other users), and interact with other agents, coherently with the assigned profile.
+User profiles are also enriched with personal information such as interests, political leaning, demographic data and personality, which contribute to make the simulation realistic.
 
 
-% Autogen
-% The framework models the actions through AutoGen \cite{pyautogen0.2.31, wu2023autogenenablingnextgenllm}, a python library that mimics a multi-agent conversation with LLMs.
+% AutoGen
+\subsubsection{AutoGen: multi-agent conversation framework}
+AutoGen is an open-source library developed by Microsoft, presented by \citet{wu2023autogenenablingnextgenllm}, to facilitate the creation of environments where LLM-based agents can interact.
+This framework has been designed to support the creation of multi-agent conversations, with coherent and realistic multi-turn conversations. 
+
+\medskip
+The system is easily accessible thanks to the Python interface \cite{pyautogen0.2.31}, which allows developers to design complex communication flows.
+For these reasons, AutoGen is very effective for simulating users in simulated social environments like social networks, where interactions play a central role.
+
+\medskip
+This work simulates a social platform using Y\cite{rossetti2024ysocialllmpoweredsocial}, which is based on AutoGen to design and orchestrate agents.
+Specifically, it uses \textit{AssistantAgent}, a type of agent designed to answer and interact based on specific prompts.
+Each user is an LLM-based agent, initialized with a personalized with a profile, including opinions and communication style.
+Using AutoGen allows orchestrating conversations among agents in a natural way, enabling the emergence of realistic dynamics.
+
+
+% Personality
+\subsubsection{Personality modeling}
+One of the main advantages of using LLMs to simulate social behavior is the possibility to enrich each agent with profile details.
+This allows differentiating the behavior of individuals in a simulated population, contributing to make the environment more realistic.
+
+Among the characteristics that can be integrated in the agent initialization phase, one of the most significant is personality.
+Including personality traits makes it possible to model agents that act coherently with their own identity.
+This is especially significant in social simulations, since human behavior is influenced not only by the content received, but also in the way they interact, answer and make decisions.
+
+\medskip
+The most well-known and used personality model is the Big Five Model, or the Five Factors Model \cite{barrick1991bigfive, McCrae1992}. This approach describes human personality in five main dimensions, which are present in each individual in different levels:
+
+\begin{itemize}
+    \item \textbf{Openness to Experience}: it measures the tendency to being curious, creative and open to new ideas and experiences. People with a high score tend to appreciate art and imagination, while who has a low score can be more practical and routine-oriented.
+    
+    \item \textbf{Conscientiousness}: it indicates the degree of organization, precision and self-discipline. Conscientious individuals are reliable, they plan everything carefully and follow rules, whereas those with a low score can be more impulsive and unorganized.
+    
+    \item \textbf{Extraversion}: it concerns the tendency to be sociable and assertive. Extroverts enjoy social interactions, whereas introverts prefer quiet and solitary environments. 
+    
+    \item \textbf{Agreeableness}: it measures the tendency of being kind, empathic and cooperative. People high in agreeableness tend to be cooperative, while those with a low score can be competitive and critical.
+    
+    \item \textbf{Neuroticism}: it reflects the predisposition to fell negative emotions like anxiety, anger or depression. Individuals high in neuroticism can feel stress and external pressure, while those with a low score tent to be more emotionally stable. 
+\end{itemize}
+
+
+\medskip
+Integrating these traits in the design of LLM agents helps simulating not only the different static behaviors, but also the different levels of susceptibility to social influence.
+In social network contexts, people don't behave in the same way when facing to controversial content or different group dynamics.
+Personality plays a crucial role in determining how much an individual is susceptible.
+
+\medskip
+\citet{oyibo2019personality} studied the relation between personality traits and the susceptibility to social influence, showing that Neuroticism, Openness and Conscientiousness are the most relevant factors.
+The study highlights that individuals with high Neuroticism tend to look for external approve, and are therefore more inclined to conform to others' opinions to avoid conflicts.
+People with high Openness are more open to accept new or different points of view, resulting in a higher susceptibility to influence.
+On the contrary, individuals high in Conscientiousness tend to think before changing their views, and are less impulsive in modifying their ideas.
+
+\medskip
+These insights underscore the value of integrating personality dimensions in agent modeling, with Big Five traits providing a robust mean to capture behavioral diversity in simulations.
 
 
 
 
-
-
-
-
-
-
-
-
-
-\subsection{Opinion dynamics} % 1
+\subsection{Opinion dynamics}
 % Intro
 One of the crucial aspects when studying social behavior is understanding how people evolve their opinions over time, especially when interacting with others.
 Opinion dynamics aims at describing these mechanisms, using theoretical and computational models.
@@ -195,3 +263,4 @@ The consequences of these mechanisms are not limited to individuals alone: they 
 
 
 \subsection{Italian political context (2022)} % 1
+% Including coalitions and topics used in this study
