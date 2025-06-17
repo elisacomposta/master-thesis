@@ -40,14 +40,35 @@ Moreover, Y includes the implementation of various recommender and ranking algor
 
 
 \subsection{Simulating misinformation with LLM agents}
-Rumor dissemination has long existed, even with traditional platforms, but online social networks are continuously increasing the speed and scope at which fake news and misinformation spread \cite{aimeur2023fake}. 
-Many studies have addressed the phenomenon with traditional ABM systems \cite{gausen2021can, sulis2020, muhammad2024agent}, but recent work has begun to explore LLMs as agents, leveraging their abilities to emulate human-like reasoning and content generation.
-Indeed, LLMs are able to produce high-quality content in the context of disinformation campaigns, with a high level of humanness that makes it undistinguishable from human content over 50\% of the time \cite{williams2025hqdisinformation}.
+Rumor dissemination has long existed, even with traditional communication platforms such as newspapers, radio, or television. However, the raise of online social networks has dramatically increased both the speed and scale at which fake news and misinformation can spread \cite{aimeur2023fake}. These platforms allow information to propagate almost instantly across large networks of users. As a result, misleading or entirely false content can reach large audiences before it is even identified or corrected.
 
-Recent works have investigated how LLM agents contribute to the diffusion or mitigation of misinformation.
-The study of \citet{hu2025simulatingrumorspreadingsocial} highlighted that the network structure and the individual personalities have a direct impact on the diffusion.
-The system proposed by \citet{liu2024tinyslipgiantleap} assigned the LLM agents a specific role, defining how they operate towards the content they read and write, with a focus on fake news. The possible roles are the following: spreaders, disseminating information; verifiers, checking the accuracy of the content; commentators, expressing their opinions; bystanders, simple observers.
-This study also revealed that political fake news spread faster than other types of topics.
+\medskip
+Many studies have attempted to model and understand this phenomenon with traditional Agent-Based Modeling (ABM) systems \cite{gausen2021can, sulis2020, muhammad2024agent}. In the traditional approach, agents behave according to fixed rules. While useful, this systems are limited, because they lack the richness and complexity of human communication. 
+
+\medskip
+More recently, researchers have begun to explore the use of LLMs as agents within these simulations, to leverage their abilities to emulate human-like reasoning and content generation.
+These capabilities allow LLM agents to participate in improved interactions, making the simulations more realistic.
+
+Indeed, LLMs are able to produce high-quality content even in the context of disinformation campaigns, producing text that appears convincingly human. A study by \cite{williams2025hqdisinformation} has shown that their content is undistinguishable from human-generated content over 50\% of the time, raising concerns about their potential role in amplifying misinformation.
+
+Several recent works have begun to investigate on the dual role of LLM agents: they can either contribute or mitigate misinformation diffusion.
+
+\medskip
+The study of \citet{hu2025simulatingrumorspreadingsocial} highlights that the network structure and the individual personalities of agents have a direct influence on how misinformation propagates. This suggests that both macro-level (network) and micro-level (individual traits) factors are important in shaping the outcome.
+
+\medskip
+The system proposed by \citet{liu2024tinyslipgiantleap} assigns specific roles to LLM agents, determining how they interact with the information they consume and produce, with a particular emphasis on fake news. 
+The possible roles are the following: 
+
+\begin{itemize}
+    \item \textit{Spreaders} actively disseminate information
+    \item \textit{Verifiers} check the accuracy of the content
+    \item \textit{Commentators} engage with content and express their opinions
+    \item \textit{Bystanders} passively observe the information
+\end{itemize}
+
+This role-based framework allows a more detailed modeling of user behavior withing the system.
+Moreover, their findings also revealed that political fake news tend to spread more rapidly than misled content on other topics, highlighting the importance and the risks of disinformation associated with political discourse.
 
 
 
