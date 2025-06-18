@@ -73,34 +73,48 @@ Moreover, their findings also revealed that political fake news tend to spread m
 
 
 \subsection{Opinion Dynamics}
-One of the biggest challenges in simulating social behavior is modeling opinion dynamics. This field of social sciences has traditionally focused on mathematical models to describe the change and evolution of individuals' opinions when interacting.
-\medskip
+One of the major challenges in simulating social behavior is modeling opinion dynamics, i.e., the mechanism through which individuals' opinions evolve over time, especially through interactions with others. 
+This field of social sciences has traditionally relied on mathematical models, which offer a formal abstraction of influence mechanisms among agents.
 
 % Mathematical models
-The DeGroot model \cite{Degroot1974} is a widely used model which is based on the idea that individuals are susceptible to other people's opinions. For this reason, each opinion is modeled as a weighted average of the neighbors' opinions.
-The extension proposed in the Friedkin-Johnsen model \cite{friedkin_1990} adds a term to consider the "stubbornness" of the individual toward their initial idea. 
-In another variant, the opinion of individuals is influenced by both their own current opinion and that of the neighbors \cite{Ye2018Opinion, Liu_2018}. This discrete-time solution is equivalent to the Friedkin-Johnsen model, but the stubbornness is on the current opinion, rather than the initial one.
+\medskip
+Among the most well-established models is the DeGroot model \cite{Degroot1974}, which is based on the idea that individuals are susceptible to other people's opinions. For this reason, each opinion is modeled as a weighted average of the neighbors' opinions.
+This basic form of social influence assumes full susceptibility to the surrounding environment, but fails to account for individual resistance to change.
+
+To address this, the Friedkin-Johnsen model \cite{friedkin_1990} extends DeGroot by introducing the notion of "stubbornness", the agent's tendency to retain part of its initial opinion. 
+This is formalized through a susceptibility parameter, which allows each agent to weight their original belief against the influence of others.
+
+A further variant of these models considers state-dependent updating \cite{Ye2018Opinion, Liu_2018}, where agents adjust their beliefs based on their current opinion rather than their initial one.
+
+
+% LLMs
+\medskip
+While mathematical models offer valuable insights, they  simplify complex human processes by reducing opinions to numerical values and ignoring factors such as language, emotional tone, or personality.
+
+To overcome such abstractions, recent studies have begun to leverage LLMs as agents in simulations. LLM-based agents can realistically describe the evolution of individual opinions, since they have the ability to impersonate a given profile in interactions with other individuals, and they can also express their beliefs in a textual format.
+These characteristics make them more suitable for capturing real-life mechanisms like opinion exchange, including bias, tone and context awareness.
+
+The agents in the experiment presented by \citet{cau2025languagedrivenopiniondynamicsagentbased} discussed in pairs about the Ship of Theseus paradox, a topic selected precisely because it lacks a factual resolution, so it prevents the convergence towards a specific direction.
+Each agent has an opinion, defined as a discrete value within the range 0-6, which can be updated with unitary steps depending on whether they are persuaded by their interlocutor.
+The results show that LLMs tend to agree with a given statement and interacting partners. However, this study doesn't fully leverage LLM capabilities, as agents lack deeper personalization, such as demographic traits and personality profiles.
+
+\citet{gao2023s3socialnetworksimulationlarge} introduced a more structured update mechanism, representing attitude evolution through a Markov model on a binary spectrum. 
+LLM agents are initialized with predefined profiles, and they transition between belief states by evaluating received messages and their current attitudes.
+This formalization links language-based input to structured state change.
+
+Agents in the study of \citet{chuang2024simulatingopiniondynamicsnetworks} interact in a dyadic setting. Specifically, users reply to another user's post by explaining their opinion in textual format, which is then converted into a numerical score by an opinion classifier.
+This study reveals that LLMs tend to converge towards accurate information. However, the authors also note that to better replicate human behavior, it is necessary to introduce confirmation bias, as humans often reinforce prior beliefs instead of updating them.
+
+\citet{Liu_2024} simulated user interactions in a social media setting where agents are initialized with realistic detailed personas and equipped with memory modules.
+These agents express their opinion in a tweet format. 
+Each day, they are exposed to posts from other random users, allowing them to update their views.
+While the simulation captures the dynamic exposure to content, it lacks an explicit representation of the underlying social graph, since message propagation doesn't follow a realistic network topology, nor is influenced by content distribution algorithms typical of online platforms.
+
+Finally, the research conducted by \citet{piao2025emergencehumanlikepolarizationlarge} showed that LLMs are capable of reproducing human behavior and phenomena. 
+Their results showed that LLMs tend to reach a consensus on fact-based topics (such as the flat Earth theory), whereas they develop a polarization pattern on political topics, closely resembling human social behavior.
+In their system, agents assess their own political leaning by self-rating their beliefs, which are then converted to a numerical score, offering a consistent and interpretable mapping between language and opinion.
 
 \medskip
-% LLMs
-While mathematical models offer valuable insights, they represent behavior by abstracting many of the complexities of human behavior, which is shaped by both external influences and internal traits such as personality.
-
-For this reason, recent works started to experiment with LLM agents' capabilities in realistically describing the evolution of individual opinions. 
-Not only do they have the ability to impersonate a given profile in interactions with other individuals, but they can also express their beliefs in a textual format.
-This allows more realistic simulations and makes it easier for human interpretation.
-
-The agents in the experiment presented by \citet{cau2025languagedrivenopiniondynamicsagentbased} discussed in pairs about the Ship of Theseus paradox, chosen to prevent the convergence towards a specific direction.
-The opinion is defined as a discrete value within the range 0-6, and it is updated with unitary steps depending on whether they were convinced by their partner.
-The results show that LLMs tend to agree with a given statement and interacting partners. However, this study doesn't fully leverage LLM capabilities, as agents lack personality and demographic characterization.
-
-In the work proposed by \citet{gao2023s3socialnetworksimulationlarge}, the attitude towards a topic is instead described by a Markov model in a binary spectrum. LLMs are initialized with a profile, and they evaluate the opinion transitions, also taking into account their current attitude and the messages received.
-
-Agents in the study of \citet{chuang2024simulatingopiniondynamicsnetworks} interacted in a dyadic setting. Specifically, users reply to another user's post by explaining their opinion in textual format, which is then converted into a numerical score by an opinion classifier.
-This study reveals that LLMs tend to converge towards accurate information, therefore introducing confirmation bias is essential to better resemble human behavior and opinion dynamics.
-
-\citet{Liu_2024} simulated user interactions in presence of fake news. In this study, users are initialized with realistic personas and a memory model, and express their opinion in a tweet format. They are exposed daily to tweets from other random users, but there is no explicit modeling of the social graph, nor content distribution algorithm.
-
-The research conducted by \citet{piao2025emergencehumanlikepolarizationlarge} showed that LLMs are capable of reproducing human behavior and phenomena. They also noticed that LLMs tend to reach a consensus on fact-based topics (such as the flat Earth theory), while they develop a polarization pattern on political topics.
-To extract a numerical representation of the agents' opinions, they self-assess their political leaning, which is then converted to a numerical format.
+These studies demonstrate that while mathematical models provide a foundational understanding of social influence, LLM-based agents bring new flexibility to opinion dynamic simulations, as they can integrate the characteristics of human communications.
 
 
