@@ -1,7 +1,19 @@
 \section{Background}
 \label{sec:background}
 
-% <intro>
+This section provides the necessary background to understand the key concepts and context underlying the presented work.
+
+First, we begin with an overview of Large Language Models: what they are, why they have become increasingly popular, their main tasks and applications, and the limitations that still affect their use.
+
+Next, we introduce the field of Agent-based Modeling, explaining its relevance and the significance of integrating LLMs into agent-based simulations. We then present a widely used framework for creating LLM-based agents capable of engaging in multi-agent conversations. 
+Following this, we discuss personality modeling, useful when designing LLM agents with divers behavioral traits.
+
+We then move to an overview of Opinion Dynamics, summarizing the most well-known and commonly adopted models to study how opinions evolve and spread in populations.
+
+Then, we clarify the distinction between different types of information disorders, such as misinformation and disinformation.
+
+Finally, we provide an outline of the Italian political context during the 2022 elections, offering the necessary context for the simulations conducted in this study.
+
 
 \subsection{Large Language Models}
 % Intro
@@ -256,11 +268,35 @@ The consequences of these mechanisms are not limited to individuals alone: they 
 
 
 
-
-
-
-
-
-
 \subsection{Italian political context (2022)} % 1
-% Including coalitions and topics used in this study
+% Intro, why elections, coalitions, short conclusion
+In this work, the simulated context is the Italian political landscape preceding the 2022 elections.
+This subsection aims to provide the background necessary to understand the political situation analyzed and discussed in this study.
+
+\medskip
+The elections became necessary after the dissolution of Parliament, following the resignation of Prime Minister Mario Draghi \cite{pierri2024drivers}.
+This event triggered a phase of political instability, marked by a polarized environment and an intense communication and propaganda activity, especially on social media.
+Among these platforms, Twitter played a central role for political discourse, where supporters of different parties interacted, debated and promoted their viewpoints.
+
+\medskip
+The main Italian political parties can be grouped into four major coalitions, each with its own political identity and program:
+
+\begin{itemize}
+    \item \textbf{Centre-Left}. This coalition includes \textit{Partito Democratico} (PD) and \textit{Allenaza Verdi-Sinistra}. It is progressive and focuses on social justice, civil rights, ecologic transition and fight against inequalities. \cite{wired2022elezioni12punti, ilpost2022partiti}.
+    PD represents the more moderate side, advocating for social democracy and economic fairness, while Verdi-Sinistra expresses more radical positions, especially on environmental and social issues \cite{pierri2024drivers}.
+
+    \item \textbf{Movimento 5 Stelle (M5S)}. Founded by Beppe Grillo, M5S adopted an autonomous stance in 2022, focusing on issues such as the \textit{reddito di cittadinanza}, environmental protection, and social equity \cite{pierri2023ita, wired2022elezioni12punti}.
+
+    \item \textbf{Third Pole}. Composed of \textit{Azione} and \textit{Italia Viva}, this coalition is centrist and reformist. 
+    It promotes a pragmatic and liberal approach, emphasizing modernization, meritocracy and economic stability \cite{pierri2024drivers, ilpost2022partiti}.
+
+    \item \textbf{Right}. This coalition includes \textit{Fratelli d'Italia} (FdI), \textit{Lega}, \textit{Forza Italia} (FI) and \textit{Noi Moderati}.
+    It emerged as the winner of the 2022 elections, resulting in Giorgia Meloni (FdI) becoming Prime Minister.
+    The right-wing program was based on security, defense of traditional values, tax reduction, and strict immigration control \cite{wired2022elezioni12punti, ilpost2022partiti, pagellapolitica2022confronto}.
+\end{itemize}
+
+The political Italian landscape in 2022 was therefore highly fragmented, with strong electoral competition and an intense level of public and online debate.
+Political polarization was amplified by media exposure and the dynamics of social platforms, where different factions tried to shape public opinion.
+
+\medskip
+In this context, the simulator adopted in this work aims to reproduce the behavior and the interaction dynamics of agents representing Twitter users, each associated with one of the political coalitions described above.
