@@ -90,6 +90,15 @@ activity_x = \min\left( \frac{\log(1 + n\_posts_x)}{\log(1 + N_{99.5})},\ 1.0 \r
 where $n\_posts_x$ is the number of posts written by user $x$, and $N_{99.5}$ is the 99.5th percentile, used to mitigate the impact of outliers.
 
 
+% Agent roles and prompts
+\medskip
+In this framework, the orchestration of agents to simulate multi-agent conversation is enabled by AutoGen \cite{pyautogen0.2.31, wu2023autogenenablingnextgenllm}.
+LLM-agents are initialize with the assigned profile, before performing any action. 
+
+The prompt to initialize the agent with its role is the following: 
+\input{prompts/agent_roleplay}
+
+
 \subsubsection{Behavior}
 When an agent is active, one among the following actions is performed:
 \begin{itemize}
@@ -104,15 +113,40 @@ In the original implementation of Y, the agents were responsible of choosing whi
 This work instead uses the agent's posting and commenting activity (each in the range $[0,1]$) as probabilities. If their sum is less then 1, the remaining probability is assigned to the \textit{read} action.
 This implementation allows to model the agent behavior leveraging the real data available in this study.
 
-\medskip
-% Agent roles and prompts
-The framework uses AutoGen \cite{pyautogen0.2.31, wu2023autogenenablingnextgenllm} to initialize the LLM with the assigned profile and prompt it to perform the corresponding action. 
-
-Specifically, the prompt to initialize the agent with its role is the following: 
-
-\input{prompts/agent_roleplay}
+% <one prompt example>
 
 All the prompts with the instructions to perform an action can be found in Appendix \ref{app:prompt_actions}.
+
+% Topic descriptions
+\medskip
+Each time a topic is assigned to the agent, a description is also provided.
+This is done for two reasons: to provide the LLM with the necessary background knowledge (especially regarding the 2022 Italian political views), and to outline the main stances associated with the topic, ensuring consistency and clarity in the simulation.
+
+The following are the topic descriptions provided:
+
+\begin{itemize}
+    \item \textbf{Reddito di cittadinanza}:
+        \begin{tcolorbox}[prompt]
+            A state subsidy for people living in poverty, designed to ensure a minimum standard of living and promote employment integration. Supporters believe reddito di cittadinanza is a necessary tool for social protection and inclusion; opponents are concerned about potential work disincentives and system abuses. The most radical want to abolish it, others aim to reform it.
+        \end{tcolorbox}
+
+    \item \textbf{Immigration}:
+        \begin{tcolorbox}[prompt]
+            Debates focus on border control, bilateral agreements, and managing irregular migration. Supporters advocate for inclusive immigration policies, humanitarian protection and integration; opponents prioritize national security and strict border enforcement.
+        \end{tcolorbox}
+
+    \item \textbf{Nuclear energy}:
+        \begin{tcolorbox}[prompt]
+            Debates focus on whether to include it in the energy mix. Supporters cite energy security; opponents stress risks, costs, and favor renewables.
+        \end{tcolorbox}
+
+    \item \textbf{Civil rights}:
+        \begin{tcolorbox}[prompt]
+            Covers gender equality, LGBTQIA+ rights and family structure. Supporters support expanding protections for LGBTQIA+ individuals, gender equality, and inclusive definitions of family; opponents prioritize traditional family models and may reject changes to marriage, parenting, or gender roles.
+        \end{tcolorbox}
+    
+\end{itemize}
+
 
 
 \subsubsection{Misinformation agents}

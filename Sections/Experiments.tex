@@ -1,9 +1,31 @@
-\section{Experiments and discussion}
+\section{Experiments and discussion} % 5- 7
 \label{sec:experiments}
 
-\begin{itemize} 
-    \item 5-7 pages
-    \item use of the systems on real or realistic or synthetic settings/data
-    \item report of results (quantitative, graphs, ..)
-    \item short discussion of the results 
+% Experiments (draft)
+To study the evolution of opinions and the impact of misinformation in social context, various multi-agent simulations have been run, each simulating 21 days.
+The population was composed of 100 agents, configured according to the framework described in the previous section, with an assigned profile and personality.
+
+The number of the hourly active agents was the default one proposed by the original Y system, based on a fitting on Bluesky Social \cite{rossetti2024ysocialllmpoweredsocial, failla2024}.
+
+The LLM used in the simulations is artifish/llama3.2-uncensored. This has been chosen because it is opens ource and uncensored, which allows to generate even controversial content on political topics.
+In fact, other models with the ethical filter activated often refuse to generate content about political or controversial topics, and to defend a controversial stance, especially if they are asked to reply to a given post by tagging the other user.
+To overcome all these limitations, an uncensored llm has been necessary.
+Its temperature has been set to 0.9, to favor diverse behavior and content generation, while preserving coherency with the assigned profile.
+
+Different variables have been tested:
+\begin{itemize}
+    \item Content recommender systems: % <explain what we mean and why>
+        \subitem \textit{ReverseChronoFollowersPopularity}: default % check name <add short explanation>
+        \subitem \textit{ContentRecSys}: random
+    \item Misinformation levels:
+        \subitem 0\% no misinformation
+        \subitem 5\%
+        \subitem 10\%
+        \subitem 50\% extremely high exposure
 \end{itemize}
+
+These conditions allow to create both realistic and extreme scenarios, to better analyze the impact.
+
+Each scenario with a specific combination of condition has been run between 10 and 20 times, each time with new users, to guarantee statistical robustness and analyze general trends. 
+
+% Results and discussion
