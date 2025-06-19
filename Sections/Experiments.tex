@@ -1,31 +1,43 @@
 \section{Experiments and discussion} % 5- 7
 \label{sec:experiments}
 
-% Experiments (draft)
-To study the evolution of opinions and the impact of misinformation in social context, various multi-agent simulations have been run, each simulating 21 days.
-The population was composed of 100 agents, configured according to the framework described in the previous section, with an assigned profile and personality.
+% Experiments
+To study the evolution of opinions and the impact of misinformation in a simulated social context, various multi-agent simulations have been run, each lasting 21 virtual days.
+The population was composed of 100 agents, configured according to the approach described in the previous section, therefore assigning each agent a profile and personality.
+This setup allows to obtain an heterogeneous population of users with different opinions and communication styles.
 
-The number of the hourly active agents was the default one proposed by the original Y system, based on a fitting on Bluesky Social \cite{rossetti2024ysocialllmpoweredsocial, failla2024}.
+Regarding the frequency of activity of agents during the day, the simulations used the hourly activity proposed in the original Y system, which is based on a statistical fitting on real data on Bluesky Social \cite{rossetti2024ysocialllmpoweredsocial, failla2024}.
+This guarantees a realistic temporal distribution of daily interactions, coherently with a real social network.
 
-The LLM used in the simulations is artifish/llama3.2-uncensored. This has been chosen because it is opens ource and uncensored, which allows to generate even controversial content on political topics.
-In fact, other models with the ethical filter activated often refuse to generate content about political or controversial topics, and to defend a controversial stance, especially if they are asked to reply to a given post by tagging the other user.
-To overcome all these limitations, an uncensored llm has been necessary.
-Its temperature has been set to 0.9, to favor diverse behavior and content generation, while preserving coherency with the assigned profile.
+\medskip
+The LLM used by agents is \textit{artifish/llama3.2-uncensored}, available on \textit{Ollama} platform. 
+This has been chosen because it's open source and uncensored.
+This aspect is crucial when working with potentially controversial topics, such as political discussions or extremist stances.
+In fact, other models with the ethical filter tend to refuse to generate content about sensible topics, or avoid expressing a more extremist opinion.
+Using an uncensored LLM allows therefore to produce contents closer to real-world language, even on controversial arguments.
+To encourage diversity in the generated contents, the temperature has been set to 0.9, balancing variety and coherency with the assigned agent profile.
 
-Different variables have been tested:
+\medskip
+During the experimentation phase, various conditions have been tested, to evaluate hoe some factors can influence the behavior of agents.
+Specifically, the variables considered are:
 \begin{itemize}
-    \item Content recommender systems: % <explain what we mean and why>
-        \subitem \textit{ReverseChronoFollowersPopularity}: default % check name <add short explanation>
-        \subitem \textit{ContentRecSys}: random
-    \item Misinformation levels:
-        \subitem 0\% no misinformation
-        \subitem 5\%
-        \subitem 10\%
-        \subitem 50\% extremely high exposure
+    \item \textbf{Content recommender systems}: Y platform has the possibility to define how contents are selected and provided to users.
+    This mechanism has a direct impact on the interactions and therefore on the evolution of the simulation.
+    Among the various algorithms proposed by the framework, the following have been adopted in this work:
+        \subitem \textit{ReverseChronoFollowersPopularity}: recommends recent content from followed users, sorted by their popularity. A specified percentage of content comes from non-followed users, to guarantee exposure to different views.
+        \subitem \textit{ContentRecSys}: randomly selects a subset of the content published on the platform.
+    \item \textbf{Misinformation level}: this work integrated in the existing framework misinformation agents, who publish misleading content. 
+    Various levels of misinformation have been tested, to analyze whether and how it impacts the evolution of the social system.
+        \subitem \textbf{0\%}: scenario with no misinformation, useful as baseline.
+        \subitem \textbf{5\%}: low misinformation level, mimics an occasional exposure to misinformation.
+        \subitem \textbf{10\%}: medium level, the exposure is moderate but significant.
+        \subitem \textbf{50\%} extremely high exposure, unrealistic but useful to observe extreme dynamics.
 \end{itemize}
 
-These conditions allow to create both realistic and extreme scenarios, to better analyze the impact.
+These conditions make it possible to explore both realistic and extreme scenarios, in order to have a complete view of the effect of the considered variables.
 
-Each scenario with a specific combination of condition has been run between 10 and 20 times, each time with new users, to guarantee statistical robustness and analyze general trends. 
+\medskip
+Each scenario, corresponding to a specific combination of misinformation level and disinformation, has been run between 10 and 20 times, each time with new population of agents.
+This approach guarantees statistical robustness of results and analyze general trends, reducing the influence of randomness. 
 
 % Results and discussion
