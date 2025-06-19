@@ -98,6 +98,18 @@ LLM-agents are initialize with the assigned profile, before performing any actio
 The prompt to initialize the agent with its role is the following: 
 \input{prompts/agent_roleplay}
 
+% Coalition opinions
+The opinion of the supported coalition is provided for every topic used in the simulations, and includes a label clearly describing the stance toward the topic, and a textual description.
+The description of the topics is provided in the next subsection, and clarifies the stance.
+
+The description of the political views have been adapted from \cite{wired2022elezioni12punti, ilpost2022partiti, pagellapolitica2022confronto, pagellapolitica2022programmi}.
+To provide an example, the opinions for the \textit{Centre-Left} coalition is the following:
+
+\input{Coalitions/Centre-Left_opinions}
+
+A full list of the political opinions of all the coalitions can be found in the appendix \ref{app:coalition_opinions}.
+
+
 
 \subsubsection{Behavior}
 When an agent is active, one among the following actions is performed:
@@ -125,9 +137,9 @@ This is done for two reasons: to provide the LLM with the necessary background k
 The following are the topic descriptions provided:
 
 \begin{itemize}
-    \item \textbf{Reddito di cittadinanza}:
+    \item \textbf{Civil rights}:
         \begin{tcolorbox}[prompt]
-            A state subsidy for people living in poverty, designed to ensure a minimum standard of living and promote employment integration. Supporters believe reddito di cittadinanza is a necessary tool for social protection and inclusion; opponents are concerned about potential work disincentives and system abuses. The most radical want to abolish it, others aim to reform it.
+            Covers gender equality, LGBTQIA+ rights and family structure. Supporters support expanding protections for LGBTQIA+ individuals, gender equality, and inclusive definitions of family; opponents prioritize traditional family models and may reject changes to marriage, parenting, or gender roles.
         \end{tcolorbox}
 
     \item \textbf{Immigration}:
@@ -140,11 +152,10 @@ The following are the topic descriptions provided:
             Debates focus on whether to include it in the energy mix. Supporters cite energy security; opponents stress risks, costs, and favor renewables.
         \end{tcolorbox}
 
-    \item \textbf{Civil rights}:
+    \item \textbf{Reddito di cittadinanza}:
         \begin{tcolorbox}[prompt]
-            Covers gender equality, LGBTQIA+ rights and family structure. Supporters support expanding protections for LGBTQIA+ individuals, gender equality, and inclusive definitions of family; opponents prioritize traditional family models and may reject changes to marriage, parenting, or gender roles.
-        \end{tcolorbox}
-    
+            A state subsidy for people living in poverty, designed to ensure a minimum standard of living and promote employment integration. Supporters believe reddito di cittadinanza is a necessary tool for social protection and inclusion; opponents are concerned about potential work disincentives and system abuses. The most radical want to abolish it, others aim to reform it.
+        \end{tcolorbox}    
 \end{itemize}
 
 
@@ -176,13 +187,17 @@ One of the crucial aspects on which this work focuses on is opinion dynamics.
 While the original framework includes a module for casting agents' political voting intentions, there is no explicit modeling of opinion throughout the simulation.
 Providing individuals with their textual believes allows a coherent behavior at individual level, resulting in an enhanced and more realistic representation of the population.
 
-In this work, the opinion is modeled as a numerical score that ranges from $-1$ (strongly opposed) to $+1$ (strongly supported).
+% How opinion is modeled
+In this work, the opinion is modeled as a numerical score that ranges from $-1$ (strongly opposed) to $+1$ (strongly supported), and has corresponding textual explanation.
 
-The models implemented can be grouped into two categories.
+% Initial opinions
+The initial opinion of agents correspond to those of their supported political coalition, and it can evolve over time.
+
+% Intro to model categories
+\medskip
+The models implemented in this work can be grouped into two categories.
 The first one includes some basic score aggregation and various known opinion models, to mathematically represent the evolution of agents' believes.
 The second solution employs LLMs, leveraging their ability to impersonate the user, reason, and express their views in a textual format.
-
-%
 
 
 \subsubsection{Mathematical modeling}

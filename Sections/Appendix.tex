@@ -1,171 +1,54 @@
 \appendix
+
+% PROMPTS
 \section{Prompts}
 \label{app:prompts}
 This section holds all the prompts used in this work.
 
+% Base prompts
 \subsection{Actions}
 \label{app:prompt_actions}
 
 \subsubsection{Post}
-
-\begin{tcolorbox}[prompt]
-Write a tweet that discusses the following topic: \texttt{\{topic\}}.
- - Your tweet MUST be under 280 characters including spaces. If it exceeds this limit, the output is INVALID. Keep it short and sharp.\\
- - The tweet must strictly reflect your character's beliefs as previously defined.\\
- - Use an informal tone, appropriate for social media posts.\\
- - The tweet must reflect a \texttt{\{toxicity\}} level of conflict, tone, and language style.\\
-  - Hashtags should be placed at the end.\\
- - Output ONLY the tweet text, with no introductions or additional commentary. Don't mention anything with '@'.\\
-\end{tcolorbox}
-
-
+\input{prompts/post}
 
 \subsubsection{Comment}
-
-\begin{tcolorbox}[prompt]
-You are participating to a discussion about the following topic: \texttt{\{topic\}}. Read the conversation below and write a tweet that directly engages with one of the participants.
-\smallskip
- - Your tweet MUST be under 280 characters including spaces. If it exceeds this limit, the output is INVALID. Keep it short and sharp.\\
- - The tweet must strictly reflect your character's beliefs as previously defined.\\
- - Use an informal tone, appropriate for social media posts.\\
- - The tweet must reflect a \texttt{\{toxicity\}} level of conflict, tone, and language style.\\
- - Begin with @username to address the user you are interacting with. Don't mention anything else with '@'.\\
- - Output ONLY the tweet text, with no introductions or additional commentary
-
-\medskip
-
-\#\#CONVERSATION START\#\#
-
-\medskip
-\texttt\{{conv\}}
-
-\medskip
-\#\#CONVERSATION END\#\#
-
-\end{tcolorbox}
-
-
+\input{prompts/comment}
 
 \subsubsection{Reaction}
-
-\begin{tcolorbox}[prompt]
-Read the following text, write YES if you like it, NO if you don't, NEUTRAL otherwise. Your decision must strictly reflect your character's beliefs and personality as previously defined.
-
-\medskip
-\#\#TEXT START\#\#
-
-\medskip
-
-\texttt{\{post\_text\}}
-
-\medskip
-
-\#\#TEXT END\#\#
-\end{tcolorbox}
+\input{prompts/reaction}
 
 \subsubsection{Evaluate follow}
+\input{prompts/evaluate_follow}
 
-\begin{tcolorbox}[prompt]
-Read the following post, write YES if you want to \texttt{\{action\}} its author, NO otherwise. Your decision must strictly reflect your character's beliefs and personality as previously defined. Do not write additional text to justify your response.
-
-\medskip
-
-\#\#TEXT START\#\#
-
-\medskip
-
-\texttt{\{post\_text\}}
-
-\medskip
-
-\#\#TEXT END\#\#
-\end{tcolorbox}
-
-
-
+% Misinfo
 \subsection{Misinformation actions}
 \label{app:prompt_misinfo}
-\subsubsection{Post}
-\begin{tcolorbox}[prompt]
-Write a short tweet about the following topic: \texttt{\{topic\}}.\\
-- HARD LIMIT: Your tweet MUST be under 280 characters including spaces. If it exceeds this limit, the output is INVALID. Keep it short and sharp.\\
-- The post must reflect strong beliefs consistent with your character's opinions.\\
-- Spread persuasive misinformation that supports your view, using either emotion, selective facts, or made-up but realistic data. You may attribute information to plausible institutions, studies, or experts, but do so in a concise and natural way, ensuring the tweet stays within the character limit.\\
-- Do not mention any opposing views or express doubt.\\
-- Write only in \texttt{\{language\}}, with an informal social media tone.\\
-- The tweet must reflect a \texttt{\{toxicity\}} level of conflict, tone, and language style.\\
-- Do not mention anything with '@'.\\
-- Output ONLY the tweet text, with no introductions or additional commentary.
-\end{tcolorbox}
 
+\subsubsection{Post}
+\input{prompts/misinfo_post}
 
 \subsubsection{Comment}
-\begin{tcolorbox}[prompt]
-You are participating to a discussion about the following topic: \texttt{\{topic\}}.\\
-Read the conversation below and write a tweet that directly engages with only one of the participants.\\
-- HARD LIMIT: Your tweet MUST be under 280 characters including spaces. If it exceeds this limit, the output is INVALID. Keep it short and sharp.\\
-- Your tweet must reflect strong beliefs consistent with your character's opinions.\\
-- Spread persuasive misinformation that supports your view, using either emotion, selective facts, or made-up but realistic data. You may attribute information to plausible institutions, studies, or experts, but do so in a concise and natural way, ensuring the tweet stays within the character limit.\\
-- Do not mention any opposing views or express doubt.\\
-- Write only in \texttt{\{language\}}, with an informal social media tone.\\
-- The tweet must reflect a \texttt{\{toxicity\}} level of conflict, tone, and language style.\\
-- Begin with @username to address the user you are interacting with. Don't mention anything else with '@'.\\
-- Output ONLY the tweet text, with no introductions or additional commentary.
+\input{prompts/misinfo_comment}
 
-\medskip
-
-\#\#CONVERSATION START\#\#
-
-\medskip
-
-\texttt{\{conv\}}
-
-\medskip
-
-\#\#CONVERSATION END\#\#
-\end{tcolorbox}
-
+% Opinion update
 \subsection{Opinion update}
 \label{app:prompt_opinion}
+\input{prompts/opinion_update}
 
-\begin{tcolorbox}[prompt]
-You are updating your character's opinions based strictly on the interactions below. Be consistent with your character's beliefs and personality as previously defined.\\
-- \texttt{\{bias\_instructions\}}\\
-- Update only the following topics: \texttt{\{topics\}}\\
-- Do not introduce external reasoning or general considerations.\\
-- Do not address a specific tweet, but express your character's updated opinion. The opinion must reflect the character's position on the topic as defined in the topic descriptions, not their reaction to individual statements or posts.\\
-- Don't mention anyone with '@'.\\
-- Output EXACTLY one line per topic, following this structure:\\
-<topic>: [<LABEL>] <thought>
- 
-\medskip
- 
-Where:\\
-- <thought> must be a clear and concise sentence that reflects your current personal opinion.\\
-- <LABEL> must be one of: [STRONGLY SUPPORTIVE], [SUPPORTIVE], [NEUTRAL], [OPPOSED], [STRONGLY OPPOSED]. Choose the label based on the direction and intensity of your character's past behavior and beliefs.\\
-\hspace{1cm} - [STRONGLY SUPPORTIVE] or [STRONGLY OPPOSED]: the character holds a firm, clearly defined position with strong consistency over time and no indication of moderation.\\
-\hspace{1cm} - [SUPPORTIVE] or [OPPOSED]: the character tends toward a position but with some openness or nuance.\\
-\hspace{1cm} - [NEUTRAL]: the character's behavior or prior stance shows ambiguity, balance, or lack of clear positioning.\\
-- DO NOT include additional formatting between topics.
- 
- \medskip
- 
- \#\#OUTPUT FORMAT STRUCTURE\#\#
- 
- \smallskip
- <topic1>: [<LABEL>] <thought>\\
- <topic2>: [<LABEL>] <thought>\\...
- 
- \smallskip
- \#\#END OF OUTPUT FORMAT STRUCTURE\#\#
- 
- \medskip
- 
- \#\#INTERACTIONS START\#\#
- 
- \medskip
- \texttt{\{memory\}}
- 
- \medskip
- \#\#INTERACTIONS END\#\#
-\end{tcolorbox}
+
+% COALITIONS
+\section{Coalition opinions}
+\label{app:coalition_opinions}
+
+\subsection{Centre-Left}
+\input{Coalitions/Centre-Left_opinions}
+
+\subsection{Movimento 5 Stelle (M5S)}
+\input{Coalitions/M5S_opinions}
+
+\subsection{Right}
+\input{Coalitions/Right_opinions}
+
+\subsection{Third Pole}
+\input{Coalitions/Third_Pole_opinions}

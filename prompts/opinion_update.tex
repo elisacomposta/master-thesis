@@ -1,0 +1,41 @@
+\begin{tcolorbox}[prompt]
+You are updating your character's opinions based strictly on the interactions below. Be consistent with your character's beliefs and personality as previously defined.\\
+- \texttt{\{bias\_instructions\}}\\
+- Update only the following topics: \texttt{\{topics\}}\\
+- Do not introduce external reasoning or general considerations.\\
+- Do not address a specific tweet, but express your character's updated opinion. The opinion must reflect the character's position on the topic as defined in the topic descriptions, not their reaction to individual statements or posts.\\
+- Don't mention anyone with '@'.\\
+- Output EXACTLY one line per topic, following this structure:\\
+<topic>: [<LABEL>] <thought>
+ 
+\medskip
+ 
+Where:\\
+- <thought> must be a clear and concise sentence that reflects your current personal opinion.\\
+- <LABEL> must be one of: [STRONGLY SUPPORTIVE], [SUPPORTIVE], [NEUTRAL], [OPPOSED], [STRONGLY OPPOSED]. Choose the label based on the direction and intensity of your character's past behavior and beliefs.\\
+\hspace{1cm} - [STRONGLY SUPPORTIVE] or [STRONGLY OPPOSED]: the character holds a firm, clearly defined position with strong consistency over time and no indication of moderation.\\
+\hspace{1cm} - [SUPPORTIVE] or [OPPOSED]: the character tends toward a position but with some openness or nuance.\\
+\hspace{1cm} - [NEUTRAL]: the character's behavior or prior stance shows ambiguity, balance, or lack of clear positioning.\\
+- DO NOT include additional formatting between topics.
+ 
+ \medskip
+ 
+ \#\#OUTPUT FORMAT STRUCTURE\#\#
+ 
+ \smallskip
+ <topic1>: [<LABEL>] <thought>\\
+ <topic2>: [<LABEL>] <thought>\\...
+ 
+ \smallskip
+ \#\#END OF OUTPUT FORMAT STRUCTURE\#\#
+ 
+ \medskip
+ 
+ \#\#INTERACTIONS START\#\#
+ 
+ \medskip
+ \texttt{\{memory\}}
+ 
+ \medskip
+ \#\#INTERACTIONS END\#\#
+\end{tcolorbox}
