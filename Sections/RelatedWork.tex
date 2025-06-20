@@ -1,33 +1,43 @@
 \section{Related work}
 \label{sec:relatedwork}
 
-This section provides an overview of existing research related to this work, structured into three main areas: simulation environments, misinformation with LLMs and opinion dynamics.
+This section provides an overview of existing studies relevant for this work, to give a context of the current contributions in literature.
+It is structured into three main areas: simulation simulating environments, the use of LLMs to generate and study misinformation, and the opinion dynamics modeling.
 
 \subsection{Simulating Social Networks}
 
 Social simulations have been developed as a tool to study the behavior of groups of people, addressing the challenges posed by the nonlinear effects of individual interactions \cite{squazzoni2014socialsimulation}.
 Agent-Based Modeling (ABM) focuses on the dynamics of agents at the local level, and shows that these simple interactions can recreate complex social phenomena and group behavior \cite{macy2002abm}.
-Specifically, ABM allows researchers to relate social phenomena at both micro and macro level, showing the causal relation between individual behavior and the structural properties of the network. \cite{squazzoni2014socialsimulation}.
-The main limitations historically highlighted are that individuals follow simple rules \cite{conte2014agent}, and that they lack the capacity to reason and engage in social interaction.\cite{törnberg2023evaluate}
-However, the recent advancements in LLMs offer a new opportunity to overcome the drawbacks of classical ABM systems, as they enable the generation of agents capable of engaging in realistic conversations and reproducing believable human-like behavior \cite{park2023genagents}.
+Specifically, the ABM approach allows to relate social phenomena observable at both micro and macro level, highlighting the causal relation between individual behavior and the structural properties of the network. \cite{squazzoni2014socialsimulation}.
 
-Several recent works have explored the potential of LLM agents in social network simulated environments. Below, we discuss three relevant simulators.
-\medskip
+However, the main limitations historically highlighted of traditional ABMs concerns the simplicity of the rules \cite{conte2014agent} describing agents' behavior, and their inability to reason and realistically engage in social interaction.\cite{törnberg2023evaluate}
+In the last years, however, the advancements in AI and LLMs offer a new opportunity to overcome these drawbacks, making it possible to generate agents capable of engaging in realistic conversations and reproducing believable human-like behavior \cite{park2023genagents}.
+
+Several recent works have explored the potential of LLM agents in simulated social network environments. Below, we discuss three relevant simulators.
 
 % Törnberg
-\citet{törnberg2023evaluate} simulated three social media platforms, each with a specific content recommendation algorithm, to evaluate how alternative news feed algorithms impact the quality of online conversation, while increasing the interaction between opposing views.
+\medskip
+\citet{törnberg2023evaluate} simulated three social media platforms, each characterized by a specific content recommendation algorithm, in order to evaluate how alternative news feed personalization impact the quality of online conversation, while increasing the interaction between opposing views.
 
 The agents in the simulation, powered by LLMs, are individuals initialized with demographic characteristics, political leaning, interests and attitudes, taken from the 2020 American National Election Study (ANES).
+
 The first platform promotes the most popular posts by following users, while the second one suggests the globally most popular posts. Both algorithms resulted in reduced cross-party interactions and increased toxicity.
-In contrast, the third system introduces a "bridging" algorithm, which recommends the posts popular among users with opposing political views. The result is that the interactions were the least toxic, more constructive, and with more inter-partisan interactions.
+On the contrary, the third system introduces a "bridging" algorithm, suggesting posts which are popular among users with opposing political views. The result is that the interactions were the least toxic, more constructive, and with more inter-partisan interactions.
 
 This finding highlights the direct impact that content recommender systems have on the quality of online discourse.
-\medskip
 
 % S3
-In the system proposed by \citet{gao2023s3socialnetworksimulationlarge}, the LLM agents keep a memory pool with the most relevant content they posted. This enhances the agents' cognitive coherence and realism, making their behavior and attitudes more realistic.
-The system was then evaluated using real-world social network data on two levels: the considered The system was evaluated using real-world social network data on two levels: at the individual level, aspects such as emotions, attitude, and content generation were considered; at the population level, the focus was on information propagation, and the spread of emotions and attitudes. 
-Results show that the system achieved promising accuracy, and that it was able to reproduce complex real-world trends.
+\medskip
+In the system proposed by \citet{gao2023s3socialnetworksimulationlarge}, called $S^3$ the LLM agents are designed to keep a memory pool with the most relevant content they posted. 
+This memory mechanism enables agents to keep  cognitive coherence and realism in their future interactions, making their behavior and attitudes more realistic over time.
+Differently from other more simple models, where each action is independent from the previous ones, in $S^3$ the agents' decisions are influenced by their history, making their behavior similar to real-world users.
+
+The system has been evaluated using real-world social network data, with a two-level analysis.
+At individual level, the considered aspects were emotions, attitude, and content generation. At population level, instead, the study focused on information propagation in the network, and the spread of emotions and attitudes.
+
+The results show that the system has achieved promising accuracy in the simulation, proving the possibility to replicate complex dynamics observable on real social network.
+Specifically, the agents' behavior showed coherency with real-data emerging trends, highlighting the potential of LLM-based agents equipped with memory to provide reliable insights at both individual and system level
+
 
 \medskip
 % YSocial
