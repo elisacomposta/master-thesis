@@ -6,6 +6,7 @@ First, it introduces the framework and its workflow.
 Then, it details agent modeling, their initialization and behavior.
 Finally, the implemented opinion models are described, including the impact of agent behavior on their opinions.
 
+%% SIMULATION
 \subsection{Simulation workflow}
 This work is based on Y, a social media digital twin \cite{rossetti2024ysocialllmpoweredsocial}, designed to realistically simulate a social platform.
 This system provides a modular structure, allowing the study of emerging behavior in a population of virtual agents, interacting in a platform similar to real-world social media.
@@ -24,13 +25,11 @@ These agents are not initially connected, therefore there is not a predefined so
 However, throughout the simulation, agents have the possibility to create new links or remove the existing ones, evaluating the interactions they had with other users.
 In this way, the network structure dynamically emerges, and it evolves over time according to the agents' behavior and interactions.
 
-
 Each simulated day is composed of a set of rounds, corresponding to virtual hours.
 In each round, a number of active agents is sampled, according to the hourly activity configured.
 Agents can then perform an action: publish content, react, follow or unfollow other users, and eventually reply to previously received mentions.
 The specific behavior of each agent depends on its profile, its personality and the content it's interacting with. 
 An explanation of the possible actions is detailed in the next subsection.
-
 
 At the end of the day, active agents are asked to update their opinion on the topics they discussed.
 This phase is critical to study the opinion dynamics: it makes it possible to observe how social interactions and the received content impact the evolution of individual views.
@@ -76,86 +75,63 @@ Therefore, the considered population is fixed for the whole simulated time frame
 \end{algorithmic}
 \end{algorithm}
 
-% Add how content is provided (recsys)
-
 
 
 \subsection{Agents}
-% Intro about the complexity of agents and the ability of LLMs to impersonate them (?)
+% Intro
+One of the biggest challenges in social simulations is to realistically model agents and their behavior.
+In the following, there is a description of the agent initialization phase and their behavior modeling in the context of this work. 
+Then, an explanation of a new category of agents, diffusing misinformation, is provided.
 
+
+%% AGENT INIT
 \subsubsection{Initialization}
-Agents in Y are initialized with various profile features, which contributes to the creation of users with a detailed description and characterization.
+The agents in Y framework are initialized with various profile features, which contributes to the creation of virtual users with a detailed description and characterization.
 
 % Random data and personality
-Some dimensions are randomly sampled: name, surname, email, password and personality.
+Some profile dimensions are randomly sampled: name, surname, email, password and personality.
 Specifically, the personality is defined according to the Five-Factor Model \cite{barrick1991bigfive, McCrae1992}, mostly known as the Big Five model. 
-Users can be either high or low in each dimension, as described Table \ref{tab:susceptibility}, which leads to at most 32 distinct personality types.
+Users can be either high or low in each dimension, as described Table \ref{tab:susceptibility}, which leads to at most 32 combinations of distinct personalities.
 
 \medskip
 % Age and gender
-In this study, the age and gender of agents are randomly assigned, weighted according to 2024 Twitter statistics \cite{statista2024twitter}. Only the data for people aged 18 and above were considered, and the maximum age is set to 60, in line with the value in the original configuration of Y.
+In this study, the age and gender of agents are randomly assigned, but according on a weighted distribution based on 2024 Twitter statistics \cite{statista2024twitter}. 
+Only the data for people aged 18 and above were considered, and the maximum age is set to 60, in line with the value in the original configuration of Y.
 
 % Nationality and interests
-Moreover, all agents are set with Italian nationality, in order to guarantee coherency with the context of the presented case study, and they are configured with four interests, corresponding to the four topics analyzed in this study: \textit{Immigration}, \textit{Nuclear energy}, \textit{Civil rights}, \textit{Reddito di Cittadinanza}.
+Moreover, all agents are set with Italian nationality, in order to guarantee coherency with the context of the presented case study.
+All agents are also configured with the same four interests, corresponding to the topics analyzed in this study: \textit{Civil rights}, \textit{Immigration}, \textit{Nuclear energy}, \textit{Reddito di Cittadinanza}.
 
 \medskip
 % Attributes from real data
-To make the users even more realistic, some attributes have been initialized starting from real-world data, based on the dataset presented by \citet{pierri2023ita}. This includes Twitter posts collected around the Italian political elections in 2022.
-Specifically, the attributes initialized from the dataset in this work are: the political leaning, the toxicity in writing posts and comments, and the activity level.
-The activity is computed by converting the number of tweets written by each user into a continuous value in the range $[0,1]$, using the following logarithmic normalization:
+To make the users even more realistic, some attributes have been initialized starting from real-world data, based on the dataset presented by \citet{pierri2023ita}. 
+This includes Twitter posts collected around the Italian political elections in 2022.
+Specifically, the attributes initialized from the dataset in this work are: the political leaning, the toxicity in writing posts and comments, and the activity level, for each user.
+The activity is computed by converting the number of tweets posted by each user into a continuous value in the range $[0,1]$, with a logaritmic normalization to reduce the impact of outliers.
+The formula used is the following:
 
 \[
 activity_x = \min\left( \frac{\log(1 + n\_posts_x)}{\log(1 + N_{99.5})},\ 1.0 \right)
 \]
 
-where $n\_posts_x$ is the number of posts written by user $x$, and $N_{99.5}$ is the 99.5th percentile, used to mitigate the impact of outliers.
+where $n\_posts_x$ is the number of posts written by user $x$, and $N_{99.5}$ is the 99.5th percentile.
 
 
 % Agent roles and prompts
 \medskip
-In this framework, the orchestration of agents to simulate multi-agent conversation is enabled by AutoGen \cite{pyautogen0.2.31, wu2023autogenenablingnextgenllm}.
-LLM-agents are initialize with the assigned profile, before performing any action. 
+The orchestration of agents  in this simulator has been enabled by AutoGen \cite{pyautogen0.2.31, wu2023autogenenablingnextgenllm}, which allows multi-agent conversation.
+LLM-agents are initialize with their full profile, before performing any action in the system. 
 
 The prompt to initialize the agent with its role is the following: 
 \input{prompts/agent_roleplay}
 
-% Coalition opinions
-The opinion of the supported coalition is provided for every topic used in the simulations, and includes a label clearly describing the stance toward the topic, and a textual description.
-The description of the topics is provided in the next subsection, and clarifies the stance.
-
-The description of the political views have been adapted from \cite{wired2022elezioni12punti, ilpost2022partiti, pagellapolitica2022confronto, pagellapolitica2022programmi}.
-To provide an example, the opinions for the \textit{Centre-Left} coalition is the following:
-
-\input{Coalitions/Centre-Left_opinions}
-
-A full list of the political opinions of all the coalitions can be found in the appendix \ref{app:coalition_opinions}.
-
-
-
-\subsubsection{Behavior}
-When an agent is active, one among the following actions is performed:
-\begin{itemize}
-    \item \textbf{post}: writing a tweet about a given topic.
-    \item \textbf{comment}: after reading a given conversation, the agent is asked to comment it; he can then decide to add a reaction (\textit{like} or \textit{dislike}), and \textit{follow} (\textit{unfollow}) its author.
-    \item \textbf{read}: after reading a given tweet, the agent can decide to add a reaction (\textit{like} or \textit{dislike}) and \textit{follow} (\textit{unfollow}) its author, without adding any contribution to the conversation.
-\end{itemize}
-
-\medskip
-% Select action
-In the original implementation of Y, the agents were responsible of choosing which action to perform.
-This work instead uses the agent's posting and commenting activity (each in the range $[0,1]$) as probabilities. If their sum is less then 1, the remaining probability is assigned to the \textit{read} action.
-This implementation allows to model the agent behavior leveraging the real data available in this study.
-
-% <one prompt example>
-
-All the prompts with the instructions to perform an action can be found in Appendix \ref{app:prompt_actions}.
-
 % Topic descriptions
 \medskip
-Each time a topic is assigned to the agent, a description is also provided.
-This is done for two reasons: to provide the LLM with the necessary background knowledge (especially regarding the 2022 Italian political views), and to outline the main stances associated with the topic, ensuring consistency and clarity in the simulation.
+The agent role initialization also includes a description of the topics considered.
+This is done for two reasons: to provide the LLM with the necessary background knowledge (especially regarding the 2022 Italian political views), and also to outline the meaning of the stances associated with each topic.
+This enables consistency and clarity in the simulation, as clarifying what it means to be supporting or opposing a topic is crucial for guaranteeing a coherent opinion update.
 
-The following are the topic descriptions provided:
+The following are the provided descriptions for each topic:
 
 \begin{itemize}
     \item \textbf{Civil rights}:
@@ -179,32 +155,91 @@ The following are the topic descriptions provided:
         \end{tcolorbox}    
 \end{itemize}
 
-% TODO: Add how topics are chosen (get_interest)
+
+% Coalition opinions
+Furthermore, the opinion of the supported coalition is provided for every topic, and it includes a label summarizing the stance (supportive/opposed), followed a more detailed textual description.
+
+The description of the political views have been adapted from \cite{wired2022elezioni12punti, ilpost2022partiti, pagellapolitica2022confronto, pagellapolitica2022programmi}.
+To provide an example, the opinions for the \textit{Centre-Left} coalition are the following:
+
+\input{Coalitions/Centre-Left_opinions}
+
+A full list of the political opinions for each coalition can be found in Appendix \ref{app:coalition_opinions}.
 
 
 
+%% BEHAVIOR
+\subsubsection{Agents' behavior}
+When an agent is active, one among the following actions is performed:
+\begin{itemize}
+    \item \textbf{Post}: writing a tweet about a given topic.
+    \item \textbf{Comment}: after reading a given conversation, the agent is asked to comment a post; he can then choose to add a reaction (\textit{like} or \textit{dislike}), and \textit{follow} or \textit{unfollow} the author of the post.
+    \item \textbf{Read}: the agent reads a given tweet without adding any contribution to the conversation; however, he can decide to add a reaction (\textit{like} or \textit{dislike}) and \textit{follow} (or \textit{unfollow}) its author.
+\end{itemize}
+
+\medskip
+% Select action
+In the original implementation of Y, the agents were responsible of choosing which action to perform.
+In this work, instead, the agent behavior is driven by two activity values, (each in the range $[0,1]$: one concerns the agent's tendency to post, the other to comment. 
+The remaining probability, if their sum is less then 1, is automatically assigned to the \textit{read} action.
+This modification allows to model the agent behavior in a more realistic way, leveraging the real data available in this study, as agents tend to behave coherently with the activity levels observed in real data.
+
+All the prompts with the instructions to perform an action can be found in Appendix \ref{app:prompt_actions}.
+
+% How topics are chosen (get_interest)
+When an agent needs to write a post, the provided prompt specifies the topic, which is chosen among the active interests of the user.
+Specifically, it is randomly chosen among the candidate topics, which are the ones that have been active in the configured time window.
+
+% Content recsys
+When agents interact with content published by other users (by reading or commenting), the recommended posts are selected by a recommendation system.
+Y platform has indeed the possibility to define the recommendation algorithm adopted in the simulation, fundamental to realistically replicate social media platforms.
+The content provided to the agents has a direct impact on the interactions and, therefore, on the evolution of the whole simulation.
+Among the various algorithms proposed by the framework, the following have been adopted in this work:
+    \begin{itemize}
+        \item \textit{ReverseChronoFollowersPopularity}: recommends recent content from followed users, sorted by their popularity. A specified percentage of content comes from non-followed users, to guarantee exposure to different views.
+        \item \textit{ContentRecSys}: randomly selects a subset of the content published on the platform.
+    \end{itemize}
+
+% User recsys
+For the same reason, the framework also supports various algorithms for recommending users to follow. 
+The one adopted in this work is the default one, \textit{PreferentialAttachment}, which recommends users based on a score computed as the product of the agent’s neighbor set size and that of the candidate user.
+
+
+%% MISINFORMATION
 \subsubsection{Misinformation agents}
-This work extends the agents modeled by Y, by introducing some special agents, designed to generate misinformation.
-These agents are not bots nor coordinated agents: they are designed as all other normal agents, and they are prompted with a profile including demographics and personality.
+This work extends the agents modeling proposed by Y, by introducing a special category of agents, specifically designed to generate misinformation.
+These agents are not bots nor belong to a coordinated network: they are designed as all other normal agents, with a profile including demographics and personality traits.
 
 % Misinformation content
-The main difference is that they are encouraged to generate misleading content supporting their views:
+The main difference, with respect to other users, is that they are asked to generate misleading content supporting their views.
+While the reading action remains the same, the prompts for posting and commenting include an instruction telling the agents to generate such content in the following way:
 
 \begin{tcolorbox}[prompt]
 Spread persuasive misinformation that supports your view, using either emotion, selective facts, or made-up but realistic data. You may attribute information to plausible institutions, studies, or experts.
 \end{tcolorbox}
 
+Even though, reading the prompt, these agents seem to be designed to knowingly spread false information, they are not to be considered as disinformators in a strict sense.
+There is no explicit harmful intent, and they are not part of a structured organization or of a planned disinformation campaign.
+For this reason, in the context of this study, they are considered as misinformators, individuals that share inaccurate or misleading content, but with no malicious intent.
+
 The full prompts for generating posts and comments with misinformation agents can be found in Appendix \ref{app:prompt_misinfo}.
 
 \medskip
 % Coalition assignment, toxicity and activity generation
-Another difference is that these agents are not directly initialized with the data of real users.
-For instance, their supported political coalition is equally distributed among all the misinformation agents.
-Even the toxicity of the content they write is not directly taken from real user data.
-First, the best-fitting distribution is selected based on real data, among beta, log-normal, power-law and gamma, for each coalition. Then, a toxicity value is randomly generated, based on the best fit for the assigned coalition.
-Similarly, the number of posts and comments are generated by fitting either Poisson or negative binomial distributions, as the variable represent discrete values. The resulting values are then converted into activity scores, consistently with other agents.
+Another difference with respect to other agents is that these users are not initialized with the data of real users.
+For instance, the supported political leaning is randomly assigned, in order to obtain a uniform distribution among the various coalitions.
+
+Even the toxicity level of the content they write is not directly assigned with the data of a real user.
+This value has been model with a process based on statistical distributions.
+Specifically, for each coalition, the best-fitting distribution is identified, analyzing real data, among beta, log-normal, power-law and gamma distributions.
+Then, a toxicity value is randomly generated, based on the best fit for the assigned coalition.
+
+The same approach has been used to determine the agents' activity, starting from the number of posts and comments.
+Since these variables represent discrete quantities, they have been modeled using distributions like the Poisson or negative binomial distributions, fitted on the observed data.
+The resulting values are then converted into normalized activity scores, consistently with what is done for other agents in the simulation.
 
 
+%% OPINION
 \subsection{Opinion modeling and update}
 One of the crucial aspects on which this work focuses on is opinion dynamics.
 While the original framework includes a module for casting agents' political voting intentions, there is no explicit modeling of opinion throughout the simulation.
