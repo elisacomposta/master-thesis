@@ -7,20 +7,39 @@ Then, it details agent modeling, their initialization and behavior.
 Finally, the implemented opinion models are described, including the impact of agent behavior on their opinions.
 
 \subsection{Simulation workflow}
-This work is based on Y, a social media digital twin \cite{rossetti2024ysocialllmpoweredsocial}.
-Algorithm \ref{alg:workflow} describes the base workflow of the simulations. 
-It preserves the core implementation, and extends it to include the opinion update at the end of the day.
-The framework can be customized through a configuration file, which allows the specification of many parameters to model the desired environment.
+This work is based on Y, a social media digital twin \cite{rossetti2024ysocialllmpoweredsocial}, designed to realistically simulate a social platform.
+This system provides a modular structure, allowing the study of emerging behavior in a population of virtual agents, interacting in a platform similar to real-world social media.
+Algorithm \ref{alg:workflow} describes the base flow of the simulations on which this work is based on.
 
-The population of agents is initially created without any predefined network.
-Throughout the simulation, agents can form and remove connections, allowing the network structure to emerge and evolve.
+\medskip
+The proposed workflow preserves the core original implementation of Y, and extends with a further phase, in which agents update their opinions on the topics discussed during the day.
+This extension enables a deeper analysis of the social dynamics due to opinion change.
 
-In each round, a number of active agents is sampled, according to the hourly activity defined in the configuration file.
-Agents then perform their action, detailed in the next subsection, and eventually reply to received mentions.
-%At the end of each day, a subsample of users are selected to follow a recommended user.
-Finally, agents are asked to update their opinion on the topics they discussed during the day.
+The behavior of the simulated environment is completely configurable, as it allows the specification of many parameters, such as: the hourly activity, the algorithms for recommending contents and users, the level of misinformation agents, the language model, and others.
+This approach makes the system highly flexible, enabling to model various scenarios.
 
-The original framework also allows to manage a percentage of agents that can leave or join the platform daily. This is omitted in the algorithm, as this study only focuses on those users who remain subscribed to the platform for the whole simulated time frame. 
+\medskip
+At the beginning of the simulation, a population of agents is initially generated.
+These agents are not initially connected, therefore there is not a predefined social network.
+However, throughout the simulation, agents have the possibility to create new links or remove the existing ones, evaluating the interactions they had with other users.
+In this way, the network structure dynamically emerges, and it evolves over time according to the agents' behavior and interactions.
+
+
+Each simulated day is composed of a set of rounds, corresponding to virtual hours.
+In each round, a number of active agents is sampled, according to the hourly activity configured.
+Agents can then perform an action: publish content, react, follow or unfollow other users, and eventually reply to previously received mentions.
+The specific behavior of each agent depends on its profile, its personality and the content it's interacting with. 
+An explanation of the possible actions is detailed in the next subsection.
+
+
+At the end of the day, active agents are asked to update their opinion on the topics they discussed.
+This phase is critical to study the opinion dynamics: it makes it possible to observe how social interactions and the received content impact the evolution of individual views.
+The opinion is updated leveraging the linguistic skills of the LLM, as described in the dedicated subsection.
+
+\medskip
+The original framework also allows to dynamics manage a percentage of agents that can leave or join the platform daily. 
+However, this work doesn't use this feature, as the goal is to focus on a stable set of users.
+Therefore, the considered population is fixed for the whole simulated time frame, to prevent the turnover of users to significantly impact the results.
 
 \begin{algorithm}
 \caption{Simulation workflow}
@@ -56,6 +75,8 @@ The original framework also allows to manage a percentage of agents that can lea
 \ENDFOR
 \end{algorithmic}
 \end{algorithm}
+
+% Add how content is provided (recsys)
 
 
 
@@ -157,6 +178,8 @@ The following are the topic descriptions provided:
             A state subsidy for people living in poverty, designed to ensure a minimum standard of living and promote employment integration. Supporters believe reddito di cittadinanza is a necessary tool for social protection and inclusion; opponents are concerned about potential work disincentives and system abuses. The most radical want to abolish it, others aim to reform it.
         \end{tcolorbox}    
 \end{itemize}
+
+% TODO: Add how topics are chosen (get_interest)
 
 
 
