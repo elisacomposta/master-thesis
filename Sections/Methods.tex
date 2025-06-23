@@ -180,7 +180,7 @@ When an agent is active, one among the following actions is performed:
 \medskip
 % Select action
 In the original implementation of Y, the agents were responsible of choosing which action to perform.
-In this work, instead, the agent behavior is driven by two activity values, (each in the range $[0,1]$: one concerns the agent's tendency to post, the other to comment. 
+In this work, instead, the agent behavior is driven by two activity values, each in the range $[0,1]$: one concerns the agent's tendency to post, the other to comment. 
 The remaining probability, if their sum is less then 1, is automatically assigned to the \textit{read} action.
 This modification allows to model the agent behavior in a more realistic way, leveraging the real data available in this study, as agents tend to behave coherently with the activity levels observed in real data.
 
@@ -248,7 +248,7 @@ Providing individuals with their views in a textual format ensures a coherent be
 % How opinion is modeled
 \medskip
 In this work, the opinion is modeled as a numerical score that ranges from $-1$ (strongly opposed) to $+1$ (strongly supported), and is associated with a corresponding textual explanation.
-The initial opinion of agents correspond to those of their supported political coalition, and it can evolve over time.
+The initial opinions of agents correspond to those of their supported political coalition, and it can evolve over time.
 
 % Intro to model categories
 \medskip
@@ -312,7 +312,7 @@ This approach relies on the idea that personality traits have an impact on socia
 % State-dependent Friedkin-Johnsen
 A state-dependent version of the previous model considers the influence of the current opinion rather than the initial one \cite{Ye2018Opinion}:
 \[
-x_i(t + 1) = (1 - \lambda) x_i(t) + \lambda_i  \sum_{j \in N_i(t)} w_{ij} x_j (t)
+x_i(t + 1) = (1 - \lambda_i) x_i(t) + \lambda_i  \sum_{j \in N_i(t)} w_{ij} x_j (t)
 \]
 
 Equivalently to the previous solution, all followed users are assigned the same weight.
