@@ -1,7 +1,7 @@
 \section{Introduction}
 \label{sec:introduction}
 
-% General context
+% Intro
 In the last years, online social networks have gradually become fundamental part of everyday life of millions of people.
 They are no longer just platforms for communication, but real digital spaces where users express their emotions and shape their opinions and behaviors \cite{bakshy2015}.
 This makes them an interesting tool not only for studying individual dynamics in online interactions, but also for exploring complex collective phenomena, such as polarization, content diffusion, and other social processes \cite{vosoughi2018spread}.
@@ -21,14 +21,16 @@ The human nature of interactions introduces variability, ambiguity, and contextu
 \medskip
 To study the complex phenomena on social networks, a widely used approach the Agent-Based Modeling (ABM).
 This system allows the simulation of complex systems by describing the behavior of individual agents, each following a set of predefined rules.
-ABMs are useful for modeling online social media because they include many heterogeneous agents that interact with each other \cite{gausen2021can}.
+ABMs are particularly suitable for representing online social platforms, because they include many heterogeneous agents whose local interactions can produce unexpected global behaviors \cite{gausen2021can}.
 Through the interaction of agents, it's possible to observe unexpected collective dynamics and study the relationship between phenomena at the micro level (individual) and macro level (system).
 
 In traditional models, agents are described by relatively simple rules, guiding their behavior in a deterministic or probabilistic way.
 Even though this approach led to some interesting results, it shows limitations when it comes to replicating the complexity of human behavior, which includes language, emotions and context \cite{conte2014agent, törnberg2023evaluate}.
 
-In this scenario, Large Language Models (LLMs), linguistic models able to generate and understand text in natural language, represent a promising evolution.
-Integrating LLMs as agents in ABM simulators enables more realistic behaviors, as they can coherently replicate conversations, opinions, emotions and different interaction strategies \cite{park2023genagents}.
+In this scenario, Large Language Models (LLMs), linguistic models able to generate and understand text in natural language, represent a promising evolution for ABM.
+Differently from traditional agents, following simple and fixed rules, LLMs can simulate more complex and realistic behavior, thanks to their ability to coherently replicate conversations, opinions, emotions and different interaction strategies \cite{park2023genagents}.
+Moreover, LLMs can impersonate specific profiles, with personality, political leaning, emotions and a memory of their interactions, and act consistently with the provided characteristics.
+This enables LLM-based agents to realistically replicate complex individual behavior, such as the confirmation bias, but also emerging collective phenomena, like polarization.
 
 Studies in this direction have shown promising results, suggesting that LLMs have a great potential for simulating human behavior and deserve to be further explored \cite{gao2023s3socialnetworksimulationlarge, törnberg2023evaluate, rossetti2024ysocialllmpoweredsocial}.
 
@@ -45,18 +47,39 @@ The main contribution of this work is to extend the original \textit{Y} system i
     \item Defining a new category of agents who share misleading content to support their views.
 \end{itemize}
 
-Information disorders such as disinformation and misinformation are increasingly relevant phenomena, with direct effects on users' opinions and the online dynamics.
-Simulating their spread in a virtual environment can help analyze their impact and explore possible prevention and mitigation strategies.
+The simulations are set in the Italian political context of 2022, reflecting the same period covered by the real-world dataset used to initialize the agents, in order to ensure consistency between the scenario and the initial configuration.
+
+Due to the massive use of online platforms, information disorders such as disinformation and misinformation have become increasingly relevant.
+These phenomena refer to the spread of false or misleading content, either intentionally or unintentionally, and can have direct effects on users' opinions and influence the dynamics of online discussions.
+Moreover, false or misleading content often reaches more users and spreads faster than accurate information \cite{kumar2018falseinformationwebsocial}.
+For these reasons the extended framework includes misinformation agents, promoting misleading content: simulating such phenomenon in a virtual environment can help analyze their impact and explore possible prevention and mitigation strategies.
 
 The main goal of this work is to explore the behavior of LLM agents in the simulator, evaluating their potential to model social dynamics, and identifying the limitations of this approach.
+Understanding the behavior of these agents can help assess the reliability of LLM-based simulations, even in political contexts.
 The analysis focuses on opinion evolution, the impact of misinformation, user interactions, and the emerging network structure.
+
+
+% Methods (high level)
+\medskip
+In this study, the simulations start with the creation of the population of agents, initialized using real-world data.
+During each virtual hour, a subset of users becomes active, and performs actions such as posting, commenting, or reacting to content they read.
+At the end of each simulated day, agents update their opinions based on the interactions they had.
+Initially, the social network is empty: connections that are created or removed over time, allowing the network structure to emerge dynamically as the simulation progresses.
+In the extended framework, the opinion update is directly performed by LLMs.
+Additionally, a traditional mathematical model is used in parallel, in order to compare the final results and support the analysis.
+
+
+% Structure
+\medskip
+This work is organized as follows.
+Chapter \ref{sec:background} introduces the background concepts relevant to this study, including Agent-Based Modeling, opinion dynamics, and the use of Large Language Models.
+Chapter \ref{sec:relatedwork} reviews the main related work, with a focus on the application of LLMs on social media simulations.
+Chapter \ref{sec:methods} presents the methodological details, describing the simulation structure, the agent modeling and the opinion update mechanisms.
+Chapter \ref{sec:experiments} and \ref{sec:discussion} describe the experimental setup and present the simulation results, including an analysis of the emerging behaviors and a discussion of the limitations of the proposed approach.
+Finally, Chapter \ref{sec:conclusions} provides some final remarks and outlines future directions.
+
+
 
 
 % Più info su contesto politico delle simulazioni ?
 % Più info su disinformation?
-
-
-
-% Methods (workflow, network init e come si forma, interazioni, opinioni aggiornate da LLM e anche math per confronto -> focus sul lavoro
-% Intro conclusion delle contributions del lavoro (estende framework, e cosa analizzo)
-% Structure of the thesis
