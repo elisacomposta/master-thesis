@@ -3,6 +3,28 @@
 
 % <intro>
 
+% Population composition
+\subsection{Coalition Distribution in the Population}
+At the beginning of the simulation, users are initialized with data from real-world users, including their political leaning, by randomly sampling from the dataset.
+This approach allows the simulated population to reflect the distribution of the coalitions observed in the real data.
+
+As shown in Figure \ref{fig:population}, the distribution of coalitions is not balanced.
+Specifically, the Right coalition has the largest number of users, followed by Centre-Left and Third Pole, which have similar sizes.
+In contrast, the M5S group is smaller, with low variability across different simulations.
+
+It's important take into consideration this imbalance in the following analyses, as it may influence both the absolute volume of interactions and some of the emerging dynamics in the system.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Images/Network/population_composition_DefaultRecSys.png}
+    \caption{Distribution of the number of agents per political coalition in the simulations.
+    The Right coalition has the largest number of users, followed by Centre-Left and Third Pole.
+    The M5S coalition has the smallest number of agents, with low variability across simulations.}
+    \label{fig:population}
+\end{figure}
+
+
 % Network
 \subsection{Network structure}
 At the beginning of the simulation, users are not connected: the social network starts in an empty state.
@@ -30,7 +52,7 @@ This is valid also for some misinformation agents, confirming that they can have
 \end{figure}
 
 
-% evoluzione della rete (?)
+% Interactions
 
 
 % Opinion
