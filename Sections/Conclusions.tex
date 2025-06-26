@@ -1,11 +1,38 @@
 \section{Conclusions}
 \label{sec:conclusions}
 
-\begin{itemize} 
-    \item 1 page
-    \item short summary of work done
-    \item critical discussion of the results (limitation of applicability, threats to validity, ...)
-    \item possible future work 
-\end{itemize}
+% Goal
+Large Language Models (LLMs) have emerged as a promising tool to simulate agents in virtual environments. 
+The main goal of this work is to analyze the behavior of LLM-based agents in the context of online social media platforms.
+For this reason, the \textit{Y} simulator has been extended to integrate mechanisms for opinion evolution, the presence of misinformation agent,s and a realistic user initialization based on real-world data from the 2022 Italian political context.
+
+% Analyses
+\medskip
+To explore the simulated agents from multiple perspectives, the analysis has been conducted at different levels: from the structure of the social graph, to the types of interactions, the evolution of opinions, and the toxicity of generated content.
+
+The results show that LLMs are a promising approach for simulating realistic behavior. Agents are capable of interacting, forming connections, and generating content with varying toxicity, even though they tend to favor neutral tones.
+
+% Limitations
+\medskip
+However, some limitations of this work emerged.
+In particular, the impact of misinformation appeared negligible: even in scenarios where many agents shared misleading content, opinion dynamics remained unaffected.
+This suggests that LLM agents are not sensitive to misleading information in the way real users are.
+A possible reason is that the agent profiles, although already enriched with personality traits and confirmation bias, are not sufficient to represent more complex behaviors.
+A more detailed initialization, for instance including emotional responses, susceptibility to influence, or trust of the information they read, might allow more realistic dynamics to emerge.
+
+\medskip
+Another limitation concerns the duration of the simulations. 
+The 21 simulated days were enough for a network structure to emerge, but not long enough to observe meaningful long-term evolution.
+For instance, actions such as \textit{unfollow} are almost absent, and the effect of the different content recommendation systems did not emerge, since the network was not yet sufficiently structured in the first virtual days.
+
+As for opinion evolution, the scores assigned by LLMs were consistent with those of traditional models, both tending to converge toward neutral positions. 
+Even in this case, running longer simulations might reveal whether these trends tend to stabilize or diverge over time.
+
+% Conclusion
+\medskip
+In conclusion, integrating LLMs as agents in social simulations represent a significant step toward more realistic modeling, especially in terms of language, interactions, and content generation.
+However, to replicate more heterogeneous phenomena, such as the spread of misinformation, further work is needed to enrich the agents' behavioral models.
+
+This research direction supports the exploration of increasingly realistic simulations, enabling the investigation of complex social dynamics under controlled conditions. 
 
 \newpage
