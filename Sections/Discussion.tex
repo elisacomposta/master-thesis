@@ -264,13 +264,11 @@ This ability to generate even highly toxic texts, maybe facilitated by the use o
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.6\linewidth]{Images/Toxicity/box_posts_vs_comments.png}
-    \caption{
-    Toxicity of LLM-generated texts, in posts and comments per political coalition.
+    \caption{Toxicity of LLM-generated texts, in posts and comments per political coalition.
     The y axis is in logarithmic scale to highlight the skew of the distribution.
     The Centre-Left and Third Pole coalitions have more stable and moderate tones.
     M5S is the most toxic in posts, while the Right generates comments with greater variability and toxicity.
-    The long tails in all cases indicate that LLMs can generate content extremely toxic, even if rarely.
-    }
+    The long tails in all cases indicate that LLMs can generate content extremely toxic, even if rarely.}
     \label{fig:toxicity_box}
 \end{figure}
 
@@ -279,10 +277,25 @@ This ability to generate even highly toxic texts, maybe facilitated by the use o
 \subsection{Content Recommendation Algorithms}
 A comparison of the two content recommendation algorithms on the previously presented plots doesn't highlight any significant difference.
 This happens because, at the beginning of the simulation, agents are not connected, so the network is empty.
-Therefore, the used recommended system, \textit{ReverseChronoFollowersPopularity}, which should promote popular content from followers, doesn't have enough information to provide the best content.
+Therefore, the used default recommended system, \textit{ReverseChronoFollowersPopularity}, which should promote popular content from followers, doesn't have enough information to provide the best content.
 In this initial phase, its behavior is similar to \textit{ContentRecSys}, the algorithm that suggests random content.
 
 As a result, the different effects of the recommendation systems cannot emerge in the first few virtual days, and the dynamics produced by the two approaches are the same.
-To see a real impact of the different recommender systems, simulations should run on a longer virtual time, or a network should be initialized with preexisting connections, providing a complete context of the initial user preferences.
 
-This would allow a better evaluation of the impact of content selection on social networks.
+To support this observation, Figure \ref{fig:recsys_comparison} shows the in-group interaction ratio for different relevant interaction types, comparing the two recommendation algorithms.
+This plot clearly shows not only that the distribution of the performed actions is the same, but also that they are directed toward the same target groups (in-group or out-group), regardless of the content recommender system used.
+
+To see a real impact of the different algorithms, it would be necessary to either extend the simulation to a longer virtual time, or to start from a network initialized with preexisting connections.
+This would provide a more complete context to the content selection mechanism, enabling it to fully influence the dynamics of the system.
+
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Images/RecSys/recsys_in_group_ratio.png}
+    \caption{In-group interaction ratio for the different interactions, comparing two content recommendation algorithms.
+    The behavior of agents toward the same group overlap.
+    Not only the total volume of interactions is similar, but also the distributions directed toward in-group and out-group doesn't change.
+    This means that the recommender system, in the simulated time, didn't have a significant impact on the social behavior of agents.}
+    \label{fig:recsys_comparison}
+\end{figure}

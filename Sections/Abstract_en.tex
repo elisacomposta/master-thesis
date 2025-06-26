@@ -1,15 +1,16 @@
 Online social networks are often studied to analyze both individual and collective phenomena. 
-In this context, simulators are widely used tools to explored controlled scenarios. 
-The integration of Large Language Models (LLMs) makes it possible to create more realistic simulations, thanks to their ability to understand natural language.
+In this context, simulators are widely used tools for exploring controlled scenarios. 
+The integration of Large Language Models (LLMs) enables the creation of more realistic simulations, thanks to their ability to understand and generate content in natural language.
 
-This work aims at studying the behavior of LLM agents in a simulated social network.
+This work investigates the behavior of LLM-based agents in a simulated social network.
 Agents are initialized with realistic profiles and are calibrated on real data, collected around the 2022 Italian political elections.
 An existing social media simulator is extended by introducing mechanisms for opinion modeling and misinformation generation.
-The goal is to explore how LLM-based agents behave when simulating online conversations, and how realistic their interactions and opinion changes are.
+The aim is to examine how LLM agents simulate online conversations, interact, and evolve their opinions under different scenarios.
 
-The results show that LLM agents can generate coherent content and create connections with other users, building a realistic social graph.
-However, their behavior is less heterogeneous than the one observed in real data, especially in terms of toxicity.
-The evolution of opinions assessed by LLMs evolve over time similarly to what is observed with traditional opinion models.
-Regarding misinformation, there is no significant impact: agents seem not to change their opinions even when exposed to different levels of misleading content.
+Results show that LLM agents can generate coherent content and establish connections with other users, building a realistic social network structure. 
+However, the tone of their generated contents is less heterogeneous than the one observed in real data, in terms of toxicity.
+The evolution of opinions assessed by LLMs evolves over time similarly to what is observed with traditional opinion models.
+The exposure to misinformation content has no significant impact, suggesting that LLMs need more careful cognitive modeling in the initialization phase, to better replicate human behavior.
+Another limitation of the study concerns the simulated time, which prevents from observing long-time effects such as the impact of the different recommendation algorithms.
 
-Overall, LLMs can be a powerful tool to simulate user behavior in social environments, but they still show limitations in reproducing more heterogeneous patterns.
+Overall, LLMs demonstrate potential as tools for simulating user behavior in social environments, but challenges remain in capturing heterogeneity and more complex patterns.
