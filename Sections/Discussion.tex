@@ -1,7 +1,14 @@
 \section{Results and Discussion}
 \label{sec:discussion}
 
-% <intro>
+This section presents and discusses the results of the simulations, structuring the analysis on multiple levels to provide an overview of the behavior of LLM agents within the simulated environment.
+
+The analysis starts with the distribution of coalitions in the populations, as it may influence the following observations, and proceeds with some examples of the final network structures that emerged.
+Then, the focus shifts to the analysis of interactions, exploring how agents behave toward different groups and whether there are differences between base users and misinformation agents.
+This is followed by an analysis of the opinion evolution, including an exploration of the potential impact of misinformation on opinion shifts.
+A toxicity analysis is then conducted to assess the tone of the conversations generated in the simulations.
+Finally, some overall considerations regarding the effects of the different the content recommender systems are provided.
+
 
 % Population composition
 \subsection{Coalition Distribution in the Population}
@@ -54,6 +61,12 @@ This is valid also for some misinformation agents, confirming that they can have
 
 % Interactions
 \subsection{Interactions}
+An interesting aspect to analyze is how users interact during the simulations.
+The possible interaction types are: \textit{post}, \textit{comment}, \textit{like}, \textit{dislike}, \textit{follow}, and \textit{unfollow}.
+The analysis is divided into two parts.
+First, a comparison between in-group and out-group interactions across coalitions is performed, in order to see whether users behave differently depending on the political group they interact with.
+Then, the activity for each interaction type is analyzed, comparing base users and misinformation agents, to investigate whether the two groups have different behaviors.
+
 \subsubsection{In-group and out-group interactions across coalitions}
 To analyze how users interact with supporters of the same coalition compared to those from other groups, four types of interactions have been considered: \textit{like} and \textit{follow} (positive interactions), \textit{dislike} and \textit{unfollow} (negative interactions).
 
@@ -149,24 +162,28 @@ Even under extreme conditions, with 50\% of agents acting as misinformers, the d
 This holds across all topics and political coalitions, and it means that LLM-based agents, even when exposed to large amounts of misleading content, don't have significant changes in how they update their opinions.
 
 % Convergence to 0
+\medskip
 Although most distributions are centered around zero, they also display asymmetries.
 This reflects that agents started with different initial opinions and shifted accordingly during the simulation.
 This result is consistent with what already previously discussed in Figure \ref{fig:opinion_evolution}, where opinions tend to converge toward more neutral positions over time.
 However, the presence of misinformation seems not to affect the convergence process.
 
 % Bias
+\medskip
 A possible question is whether the lack of misinformation impact might be related to the confirmation bias, which was explicitly introduced in these work.
 It's true that confirmation bias is visible in the figure: Some distributions are relatively narrow, indicating a resistance to opinion change.
 However, this doesn't mean that opinions remain fixed: in several cases, distributions show shifts away from zero, indicating that agents are still able to change their views.
 Nevertheless, the amount of misinformation in the environment doesn't affect the direction or the quantity of these opinion changes. Agents evolve their opinions over time, but the dynamics of change are independent from the presence of misinformation.
 
 % Confronto coalizioni
+\medskip
 A comparison between different coalitions highlights that the Right coalition has the narrowest distributions, centered in zero.
 This suggests that supporters of this group are more resistant to change, independently from the topic and the level of misinformation.
 A possible explanation is that individuals supporting the Right were initialized with stronger stances, both in the numerical scores and in the descriptions of their view. 
 As a consequence, during the simulations agents tend to maintain their initial position, also supported by the confirmation bias.
 
 % Considerazioni generali LLMs
+\medskip
 These results highlight an important limitation: even though LLMs are effective at simulating realistic conversations, they seem not to be sensitive to the effects of misinformation, unlike real-world users \cite{aimeur2023fake}.
 In real setting, people may accept false content for a variety of reasons, including emotional factors, difficulty in distinguishing true from false information, preexisting believes, or social influence signals (such as likes, shares and comments).
 
