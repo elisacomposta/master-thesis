@@ -53,6 +53,64 @@ This is valid also for some misinformation agents, confirming that they can have
 
 
 % Interactions
+\subsection{Interactions}
+\subsubsection{In-group and out-group interactions across coalitions}
+To analyze how users interact with supporters of the same coalition compared to those from other groups, four types of interactions have been considered: \textit{like} and \textit{follow} (positive interactions), \textit{dislike} and \textit{unfollow} (negative interactions).
+
+Figure \ref{fig:interactions_inout} shows, for each coalition, the percentage of interactions directed toward the in-group (users of the same coalition) compared to out-groups, distinguishing between positive and negative interactions.
+
+Looking at the positive interactions, the Centre-Left and Third Pole coalitions show a balanced behavior, with around half of their likes and follows directed toward users of their own group.
+In contrast, M5S and Right show fewer in-group positive interactions.
+For M5S, this may be explained by the smaller size of the group in the simulated populations, as already discussed in Figure \ref{fig:population}, which increases the likelihood of interacting with out-group users.
+However, this doesn't apply to the Right, which includes a larger number of agents. In this case, users seems to be more inclined to like and follow users of other coalitions.
+
+For what concerns the negative interactions, these are mostly directed toward users of other coalitions.
+In-group negative interactions are low for all coalitions, with the exception of the Right, which shows higher values with respect to other groups.
+
+By comparing in-group positive and negative interactions, it's possible to observe that most coalitions tend to prefer positive interactions with members of the same group.
+The only exception is the Right, where the in-group negative interactions are more frequent than the positive ones.
+This might indicate a greater level of internal fragmentation: even among users with similar political views, conflicts or disagreements seem to emerge more often.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Images/Interactions/pos_neg_in_DefaultRecSys.png}
+    \caption{Percentage of interactions directed toward the same group (in-group), divided into positive interactions (\textit{like}, \textit{follow)}) and negative interactions (\textit{dislike}, \textit{unfollow}), for each coalition.
+    Centre-Left and Third Pole show balanced in and out interactions, while M5S and Right have higher positive out-group interactions.
+    The Right Coalition is the only one where the in-group negative interactions are more than the positive ones, indicating a possible internal fragmentation.}
+    \label{fig:interactions_inout}
+\end{figure}
+
+
+\subsubsection{Interaction activity per user type}
+Figure \ref{fig:interactions_count} shows the number of interactions per user, comparing base and misinformation agents.
+By looking at the interactions related to content generation, it's possible to notice that \textit{posts} are more frequent among misinformation agents.
+The same is true for \textit{comments}, which represents the most used interaction for both groups.
+
+As for \textit{like} reactions, there are not evident differences: the distribution for the two groups overlap, indicating a similar behavior in showing appreciation to read content.
+
+\textit{Dislikes} are instead the most frequent interaction among the ones with don't include content creation.
+Base users generally perform more dislikes compared to the other group, suggesting that they tend to express disagreement more frequently.
+
+Looking at the network dynamics, \textit{follows} are significantly lower for misinformation agents, which often don't create any connection during the simulation, while base users then to form more connections.
+\textit{Unfollow} actions are instead almost absent for both groups. This is likely because the network starts without preexisting connections, and the simulated time allows the network to emerge but not to evolve significantly in terms of link removal.
+
+Another interesting aspect is the presence of several outliers, especially for comments, posts and dislikes, indicating some users are particularly active.
+
+Overall, these results highlight that misinformation agents are highly active in content generation but are less engaged in building social connections.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Images/Interactions/count_per_user_DefaultRecSys.png}
+    \caption{Number of interactions per user, distinguishing by base and misinformation agents.
+    Among the six interaction types shown, \textit{comments} are the most frequent, followed by \textit{posts} and \textit{dislikes}.
+    Base agents tend to perform more dislikes and follows compared to misinformers, whereas the number of \textit{unfollows} is negligible for both groups.
+    Misinformation agents are more active with posts and comments, but build less connections.
+    Outliers indicate the presence of very active users.
+    }
+    \label{fig:interactions_count}
+\end{figure}
 
 
 % Opinion
