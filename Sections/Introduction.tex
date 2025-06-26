@@ -2,38 +2,38 @@
 \label{sec:introduction}
 
 % Intro
-In the last years, online social networks have gradually become fundamental part of everyday life of millions of people.
+Online social networks have increasingly become a central aspect of the daily life of millions of people.
 They are no longer just platforms for communication, but real digital spaces where users express their emotions and shape their opinions and behaviors \cite{bakshy2015}.
-This makes them an interesting tool not only for studying individual dynamics in online interactions, but also for exploring complex collective phenomena, such as polarization, content diffusion, and other social processes \cite{vosoughi2018spread}.
+They offer an interesting opportunity not only for studying individual dynamics in online interactions, but also for exploring complex collective phenomena, such as polarization, content diffusion, and other social processes \cite{vosoughi2018spread}.
 
 % Computational Social Science
-This makes social network a valuable context for the study of collective phenomena.
+For this reason, social network are a valuable context for studying emergent social processes.
 In particular, the wide availability of data, enabled by the massive use of digital technologies, has favored the emergence of Computational Social Science \cite{lazer2009computational}, an interdisciplinary research field that aims to study and explain human behavior and social dynamics through computational approaches.
 
 % Simulations
 \medskip
-In this context, one of the most powerful tools to investigate social dynamics in digital environments is represented by the use of simulators.
-These tools make it possible to recreate controlled virtual environments where it's possible to test specific scenarios, compare different strategies and observe the evolution of the behavior of users, even under conditions that would be difficult, or ethically problematic, to reproduce in real world.
-For instance, it's possible to analyze the impact of the diffusion of toxic content or fake news, or evaluate how different recommendation algorithms influence user behavior, without the need to interfere with real platforms.
+In this context, one of the most powerful tools to investigate social dynamics in digital environments is represented by the use of simulators \cite{squazzoni2014socialsimulation}.
+These tools make it possible to recreate controlled virtual environments where it's possible to test specific scenarios, compare different strategies and observe the evolution of the behavior of users, even under conditions that would be difficult, or ethically problematic, to reproduce in real world \cite{rossetti2024ysocialllmpoweredsocial}.
+For instance, it's possible to analyze the impact of the diffusion of toxic content or rumors online \cite{hu2025simulatingrumorspreadingsocial}, or evaluate how different recommendation algorithms influence user behavior \cite{törnberg2023evaluate}, without the need to interfere with real platforms.
 
-However, building a realistic simulation of a social network is a complex challenge.
-The behaviors that emerge from these systems are shaped by of many individual human factors, which are often hard to predict or formalize.
-The human nature of interactions introduces variability, ambiguity, and contextual information, making the development of such systems particularly difficult.
+However, building a realistic simulation of a social network is challenging: the behaviors that emerge from these systems are shaped by of many individual human factors, which are often hard to predict or formalize.
+The human nature of interactions introduces variability, ambiguity, and contextual information, making the development of such systems particularly difficult \cite{gao2023s3socialnetworksimulationlarge}.
 
 
 % ABMs
 \medskip
 To study the complex phenomena on social networks, a widely used approach the Agent-Based Modeling (ABM).
-This system allows the simulation of complex systems by describing the behavior of individual agents, each following a set of predefined rules.
+This system allows the simulation of complex systems by describing the behavior of individual agents, each following a set of predefined rules \cite{macy2002abm}.
 ABMs are particularly suitable for representing online social platforms, because they include many heterogeneous agents whose local interactions can produce unexpected global behaviors \cite{gausen2021can}.
 Through the interaction of agents, it's possible to observe unexpected collective dynamics and study the relationship between phenomena at the micro level (individual) and macro level (system).
 
-In traditional models, agents are described by relatively simple rules, guiding their behavior in a deterministic or probabilistic way.
-Even though this approach led to some interesting results, it shows limitations when it comes to replicating the complexity of human behavior, which includes language, emotions and context \cite{conte2014agent, törnberg2023evaluate}.
+In traditional models, agents are described by relatively simple rules guiding their behavior \cite{conte2014agent}.
+Even though this approach led to some interesting results, it shows limitations when it comes to replicating the complexity of human behavior, which includes language, emotions and context \cite{törnberg2023evaluate}.
 
+\medskip
 In this scenario, Large Language Models (LLMs), linguistic models able to generate and understand text in natural language, represent a promising evolution for ABM.
 Differently from traditional agents, following simple and fixed rules, LLMs can simulate more complex and realistic behavior, thanks to their ability to coherently replicate conversations, opinions, emotions and different interaction strategies \cite{park2023genagents}.
-Moreover, LLMs can impersonate specific profiles, with personality, political leaning, emotions and a memory of their interactions, and act consistently with the provided characteristics.
+Moreover, LLMs can impersonate specific profiles, with personality, political leaning, emotions and a memory of their interactions, and act consistently with the provided characteristics \cite{rossetti2024ysocialllmpoweredsocial}.
 This enables LLM-based agents to realistically replicate complex individual behavior, such as the confirmation bias, but also emerging collective phenomena, like polarization.
 
 Studies in this direction have shown promising results, suggesting that LLMs have a great potential for simulating human behavior and deserve to be further explored \cite{gao2023s3socialnetworksimulationlarge, törnberg2023evaluate, rossetti2024ysocialllmpoweredsocial}.
@@ -51,13 +51,16 @@ The main contribution of this work is to extend the original \textit{Y} system i
     \item Defining a new category of agents who share misleading content to support their views.
 \end{itemize}
 
+\medskip
 The simulations are set in the Italian political context of 2022, reflecting the same period covered by the real-world dataset used to initialize the agents, in order to ensure consistency between the scenario and the initial configuration.
 
+\medskip
 Due to the massive use of online platforms, information disorders such as disinformation and misinformation have become increasingly relevant.
 These phenomena refer to the spread of false or misleading content, either intentionally or unintentionally, and can have direct effects on users' opinions and influence the dynamics of online discussions.
 Moreover, false or misleading content often reaches more users and spreads faster than accurate information \cite{kumar2018falseinformationwebsocial}.
 For these reasons the extended framework includes misinformation agents, promoting misleading content: simulating such phenomenon in a virtual environment can help analyze their impact and explore possible prevention and mitigation strategies.
 
+\medskip
 The main goal of this work is to explore the behavior of LLM agents in the simulator, evaluating their potential to model social dynamics, and identifying the limitations of this approach.
 Understanding the behavior of these agents can help assess the reliability of LLM-based simulations, even in political contexts.
 The analysis focuses on opinion evolution, the impact of misinformation, user interactions, and the emerging network structure.
