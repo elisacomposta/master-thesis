@@ -15,18 +15,29 @@ The results show that LLMs are a promising approach for simulating realistic beh
 % Limitations
 \medskip
 However, some limitations of this work emerged.
-In particular, the impact of misinformation appeared negligible: even in scenarios where many agents shared misleading content, opinion dynamics remained unaffected.
-This suggests that LLM agents are not sensitive to misleading information in the way real users are.
-A possible reason is that the agent profiles, although already enriched with personality traits and confirmation bias, are not sufficient to represent more complex behaviors.
-A more detailed initialization, for instance including emotional responses, susceptibility to influence, or trust of the information they read, might allow more realistic dynamics to emerge.
-
-\medskip
-Another limitation concerns the duration of the simulations. 
 The 21 simulated days were enough for a network structure to emerge, but not long enough to observe meaningful long-term evolution.
 For instance, actions such as \textit{unfollow} are almost absent, and the effect of the different content recommendation systems did not emerge, since the network was not yet sufficiently structured in the first virtual days.
-
 As for opinion evolution, the scores assigned by LLMs were consistent with those of traditional models, both tending to converge toward neutral positions. 
 Even in this case, running longer simulations might reveal whether these trends tend to stabilize or diverge over time.
+
+Moreover, the impact of misinformation appeared negligible: even in scenarios where many agents shared misleading content, opinion dynamics remained unaffected.
+This suggests that LLM agents are not sensitive to misleading information in the way real users are.
+A possible reason is that the agent profiles, although already enriched with personality traits and confirmation bias, are not sufficient to represent more complex behaviors.
+
+% Future work
+\medskip
+To overcome these limitations, future developments might focus on a more detailed personalization of agents.
+In particular, the integration of elements such as emotional reasoning, susceptibility to influence, or trust of the information users read, might allow more realistic dynamics to emerge.
+
+Another possible extension concerns the language model used: in this work, only one model was adopted, but using different models, possibly fine-tuned on specific domains, could lead to different outcomes.
+
+Regarding misinformation, it may be interesting to investigate the impact of multimodal interactions, which include not only text but also images and videos, given their growing relevance in online communication.
+Moreover, this study only modeled agents who share misleading content to support their views. Other scenarios could be explored, such as the presence of automatic bots, coordinated groups or large-scale disinformation campaigns.
+
+Another possible research direction might involve introducing external events, such as political crises, scandals, or public statements, to analyze how agents react.
+
+Finally, it would be useful to assess the credibility and realism of the simulations by comparing the outcomes more systematically with real-world data, in order to better evaluate the observed emergent behaviors.
+
 
 % Conclusion
 \medskip
