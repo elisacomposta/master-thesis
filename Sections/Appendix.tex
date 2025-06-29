@@ -3,11 +3,19 @@
 % PROMPTS
 \section{Prompts}
 \label{app:prompts}
-This section holds all the prompts used in this work.
+This section contains all the prompts used throughout this work to guide the behavior of LLM agents, including those for initialization, interaction, content generation, and opinion update.
+
+\subsection{Agent roleplay}
+\label{app:agent}
+Before performing any action, agents are initialized with a detailed profile that defines their identity, including political orientation and current opinions, and provides them complete descriptions of the topics and the opinions held by their supported coalition.
+
+\input{prompts/agent_roleplay}
 
 % Base prompts
 \subsection{Actions}
 \label{app:prompt_actions}
+The following are the prompts for the actions that agents can perform when they are active.
+Please note that the prompts for \textit{post} and \textit{comment} refer to base agents, while those for misinformation agents are provided in the next subsection.
 
 \subsubsection{Post}
 \input{prompts/post}
@@ -24,6 +32,9 @@ This section holds all the prompts used in this work.
 % Misinfo
 \subsection{Misinformation actions}
 \label{app:prompt_misinfo}
+Misinformation agents share most of the prompts with base agents, except for those related to content generation: \textit{post} and \textit{comment}.
+In these cases, the 280 characters limit was enforced, since misinformation agents tended to include details and exceed the intended size.
+They are encouraged to produce misleading content to support their view, even by inventing realistic data and citing studies.
 
 \subsubsection{Post}
 \input{prompts/misinfo_post}
@@ -34,12 +45,20 @@ This section holds all the prompts used in this work.
 % Opinion update
 \subsection{Opinion update}
 \label{app:prompt_opinion}
+The prompt to update the opinion has two main purposes: updating the textual opinion, and assigning a stance label, later mapped to a numerical score.
+
+It includes the topics to update, a bias instruction (stronger for misinformation agents), and a memory of the daily interactions to support context-aware updates,
+
+They are also provided formatting guidelines to reduce errors and simplify the output extraction.
+
 \input{prompts/opinion_update}
 
 
 % COALITIONS
 \section{Coalition opinions}
 \label{app:coalition_opinions}
+The following are the opinions of the coalitions considered in this work.
+They also serve as the initial opinions for the supporting agents.
 
 \subsection{Centre-Left}
 \input{Coalitions/Centre-Left_opinions}
@@ -52,7 +71,3 @@ This section holds all the prompts used in this work.
 
 \subsection{Third Pole}
 \input{Coalitions/Third_Pole_opinions}
-
-
-% Possibili aggiunte
-% Plot opinion evolution by initial opinion
