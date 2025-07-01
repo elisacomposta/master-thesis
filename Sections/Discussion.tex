@@ -26,6 +26,7 @@ It's important take into consideration this imbalance in the following analyses,
     \centering
     \includegraphics[width=0.6\linewidth]{Images/Network/population_composition_DefaultRecSys.png}
     \caption{Distribution of the number of agents per political coalition in the simulations.
+    Each box represents the distribution of values across simulation runs.
     The Right coalition has the largest number of users, followed by Centre-Left and Third Pole.
     The M5S coalition has the smallest number of agents, with low variability across simulations.}
     \label{fig:population}
@@ -88,7 +89,7 @@ This might indicate a greater level of internal fragmentation: even among users 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.6\linewidth]{Images/Interactions/pos_neg_in_DefaultRecSys.png}
-    \caption{Percentage of interactions directed toward the same group (in-group), divided into positive interactions (\textit{like}, \textit{follow)}) and negative interactions (\textit{dislike}, \textit{unfollow}), for each coalition.
+    \caption{Percentage of interactions directed toward the same group (in-group), divided into positive interactions (\textit{like}, \textit{follow}) and negative interactions (\textit{dislike}, \textit{unfollow}), for each coalition, with each point representing the ratio calculated from a single simulation run.
     Centre-Left and Third Pole show balanced in and out interactions, while M5S and Right have higher positive out-group interactions.
     The Right Coalition is the only one where the in-group negative interactions are more than the positive ones, indicating a possible internal fragmentation.}
     \label{fig:interactions_inout}
@@ -121,7 +122,7 @@ Overall, these results highlight that misinformation agents are highly active in
     Base agents tend to perform more dislikes and follows compared to misinformers, whereas the number of \textit{unfollows} is negligible for both groups.
     Misinformation agents are more active with posts and comments, but build less connections.
     Outliers indicate the presence of very active users.
-    }
+    Each point represents a single user from a simulation run.}
     \label{fig:interactions_count}
 \end{figure}
 
@@ -147,7 +148,7 @@ Moreover, the general trend is the same even in different setups (with varying m
     \includegraphics[width=1\linewidth]{Images/Opinions/d21a100m00d_DefaultRecSys.png}
     \caption{Evolution of opinion for each topic, comparing LLM-assigned score (\textit{score\_llm}, top row) and the one assigned by a traditional model (\textit{score}, bottom row).
     Each line represents a coalition, with a 95\% confidence interval.
-    This figure is based on the runs for a single setup, but the trend is consistent with the other scenarios.}
+    The data is aggregated over all simulation runs of a single experimental setup.}
     \label{fig:opinion_evolution}
 \end{figure}
 
@@ -196,11 +197,10 @@ To make the simulations more realistic, it might be necessary to explicitly inte
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\linewidth]{Images/Misinformation/score_llm_RandomRecSys.png}
-    \caption{
-    Distribution of opinion shift (difference between final and initial opinion) for each topic an coalition, with varying levels of misinformation.
+    \caption{Distribution of opinion shift (difference between final and initial opinion) for each topic an coalition, with varying levels of misinformation.
     The curves, which are almost completely overlapping, show that the presence of misinformation (up to 50\%) doesn't generate significant shifts in the opinions of LLM agents.
     Right coalition shows narrower distributions centered around zero, indicating greater resistance to change.
-    }
+    Each distribution shows opinion shifts of individual users from all simulation runs at each misinformation level.}
     \label{fig:misinfo_opinion_shift}
 \end{figure}
 
@@ -235,7 +235,7 @@ In the scenarios studies, LLMs tend to behave in a uniform way and are not able 
     \centering
     \includegraphics[width=0.6\linewidth]{Images/Toxicity/diff_in_out_combined.png}
     \caption{
-    Distribution of the difference in mean toxicity toward out-group and in-group in user comments.
+    Distribution of the difference in mean toxicity toward out-group and in-group comments for each user in each simulation.
     The distribution of simulated content is more centered and narrow, indicating that agents behave similarly across groups.
     Real-wold data show greater variance, suggesting that some users are more hostile toward one of the two groups.
     }
@@ -268,6 +268,7 @@ This ability to generate even highly toxic texts, maybe facilitated by the use o
     \centering
     \includegraphics[width=0.6\linewidth]{Images/Toxicity/box_posts_vs_comments.png}
     \caption{Toxicity of LLM-generated texts, in posts and comments per political coalition.
+    Each box summarizes toxicity values from all posts or comments in the simulations.
     The y axis is in logarithmic scale to highlight the skew of the distribution.
     The Centre-Left and Third Pole coalitions have more stable and moderate tones.
     M5S is the most toxic in posts, while the Right generates comments with greater variability and toxicity.
@@ -296,7 +297,8 @@ This would provide a more complete context to the content selection mechanism, e
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.6\linewidth]{Images/RecSys/recsys_in_group_ratio.png}
-    \caption{In-group interaction ratio for the different interactions, comparing two content recommendation algorithms.
+    \caption{Percentage of in-group interactions by interaction type, comparing two recommendation algorithms.
+    Each point in the boxplot represents data from a single simulation run.
     The behavior of agents toward the same group overlap.
     Not only the total volume of interactions is similar, but also the distributions directed toward in-group and out-group doesn't change.
     This means that the recommender system, in the simulated time, didn't have a significant impact on the social behavior of agents.}

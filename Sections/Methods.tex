@@ -191,9 +191,10 @@ This modification allows to model the agent behavior in a more realistic way, le
 
 All the prompts with the instructions to perform an action can be found in Appendix \ref{app:prompt_actions}.
 
-% How topics are chosen (get_interest)
+% How topics are chosen (get_interest) + language
 When an agent needs to write a post, the provided prompt specifies the topic, which is chosen among the active interests of the user.
 Specifically, it is randomly chosen among the candidate topics, which are the ones that have been active in the configured time window.
+Although the agents represent Italian users and topics, all generated content in the simulation is in English, reflecting the default language setting of the simulation environment.
 
 % Content recsys
 When agents interact with content published by other users (by reading or commenting), the recommended posts are selected by a recommendation system.
